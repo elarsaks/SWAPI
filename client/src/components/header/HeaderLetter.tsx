@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 // Adjusted styled component to use props for conditional CSS, not as a DOM attribute
 const HeaderLetterStyles = styled.div<{ direction: number, $isClicked: boolean }>`
   ${(props) => css`
-    color: ${props.$isClicked ? 'red' : (props.direction === -10 ? 'yellow' : 'white')};
+    color: ${props.$isClicked ? 'red' : (props.direction < 0 ? 'yellow' : 'white')};
     transform: translateY(${props.direction}px);
     font-size: 2rem;
     font-weight: bold;
@@ -14,10 +14,12 @@ const HeaderLetterStyles = styled.div<{ direction: number, $isClicked: boolean }
   `}
 
   &:hover {
-    transition: transform 1s;
+    transition: all 1s;
     transition: color 100ms;
     color: red;
   }
+
+  // TODO: Mobile
 `;
 
 interface HeaderLetterProps {

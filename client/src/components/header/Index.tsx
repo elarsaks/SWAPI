@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 
 const HeaderStyles = styled.div`
-  padding-top: 5vh;
+  padding-top: 10vh;
   display: flex;
   justify-content: center;
 `;
@@ -31,13 +31,13 @@ const Header = (props: { text: string }) => {
                         return prevIndex + 1;
                     }
                 });
-            }, 300);
+            }, 400);
         }
     };
 
 
     function getDirection(index: number, currentLetterIndex: number) {
-        return currentLetterIndex === index ? -10 : 0
+        return currentLetterIndex === index ? -20 : 0
     }
 
     const renderLetters = () => {
