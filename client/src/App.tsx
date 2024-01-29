@@ -1,32 +1,62 @@
-import './App.css';
+import Header from "./components/header/Index"; // Import your HeaderLetter component
+import React from "react";
+import styled from "styled-components";
 
-import React from 'react';
-import styled from 'styled-components';
+const AppStyles = styled.div`
+  margin: 0;
+  padding: 0;
+  background-color: #2a7496;
+`;
 
-const StyledButton = styled.button`
-  background-color: blue;
-  color: white;
-  font-size: 16px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: darkblue;
-  }
+const Navigation = styled.div`
+// TODO: Build Navigation component
+  position: fixed;
+  margin-top: 0;
+  background-color: #000000;
+  width: 100%;
+  min-height: 5vh;
+`;
+
+// TODO: Menu and content are possible in the same component
+const Menu = styled.div`
+  padding-top: 5vh;
+  display: flex;
+  justify-content: center;
+`;
+
+const Content = styled.div`
+  padding-top: 5vh;
+  display: flex;
+  justify-content: center;
+`;
+
+const Footer = styled.div`
+  padding-top: 5vh;
+  display: flex;
+  justify-content: center;
 `;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>SWAPI</h1>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <StyledButton>Click Me</StyledButton> {/* Use your styled component */}
-      </header>
-    </div>
+    <AppStyles className="App">
+      <Navigation>
+        Buttons ...
+      </Navigation>
+
+      <Header text="STARWARS" ></Header>
+
+      <Menu>
+        A B C D
+      </Menu>
+
+      <Content>
+        A B C D
+      </Content>
+
+      <Footer>
+        A B C D
+      </Footer>
+    </AppStyles>
   );
 }
 
