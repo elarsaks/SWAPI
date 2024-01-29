@@ -1,3 +1,4 @@
+import Card from "./components/card/Card"
 import Header from "./components/header/Index"; // Import your HeaderLetter component
 import React from "react";
 import styled from "styled-components";
@@ -50,6 +51,8 @@ function App() {
       </Menu>
 
       <Content>
+
+        <Card header={"test"} content={"Testing"} dataImage="https://gorilla-labs.com/assets/logo.webp"></Card>
         A B C D
       </Content>
 
