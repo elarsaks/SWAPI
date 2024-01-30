@@ -55,10 +55,25 @@ function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
   const [people, setPeople] = useState<Person[]>([]);
+  const [searchWord, setSearchWord] = useState<string>("");
 
+  // Set page to 1 every time searchWord changes
   useEffect(() => {
-    fetch(`https://swapi.dev/api/people/?page=${page}`)
-      .then((response) => response.json())
+    setPage(1);
+  }, [searchWord]);
+
+  // Fetch data when page or searchWord changes
+  useEffect(() => {
+    setLoading(true);
+
+    // ! Fetching tohether with pagination and searhword is buggy
+    fetch(`https://swapi.dev/api/people/?search=${searchWord}&page=${page}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
         setPeople(data.results);
         setLoading(false);
@@ -67,25 +82,24 @@ function App() {
         setError(error.message);
         setLoading(false);
       });
-  }, [page]);
+  }, [page, searchWord]);
 
   const ContentContextValue = {
-    setPeople,
-    setLoading,
     setError,
-    setPage,
     setInfo,
+    setLoading,
+    setPage,
+    setPeople,
+    setSearchWord,
   };
 
   return (
     <ContentContext.Provider value={ContentContextValue}>
       <AppStyles className="App">
         <NavBar />
-        <Title text="STAR WARS" />
-
+        <Title text={"STAR WARS" + page} />
         <div>
           <Menu setPage={setPage} page={page} />
-
           <Content $isUtil={loading || error.length > 0 || info.length > 0}>
             {loading && <LoadingCube height="400px" text="Loading ..." />}
             {error && <Util type="error" message={error} />}
@@ -97,7 +111,6 @@ function App() {
               ))}
           </Content>
         </div>
-
         <Footer />
       </AppStyles>
     </ContentContext.Provider>

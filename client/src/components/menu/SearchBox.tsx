@@ -25,61 +25,25 @@ const Input = styled.input`
 `;
 
 const SearchBox: React.FC = () => {
-  const [searchWord, setSearchWord] = useState("");
-  const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
+  const { setSearchWord } = useContext(ContentContext);
+  const [inputValue, setInputValue] = useState("");
 
-  const { setError, setInfo, setLoading, setPage, setPeople } =
-    useContext(ContentContext);
-
+  // Debounce
   useEffect(() => {
-    const handler = setTimeout(() => {
-      if (searchWord.length > 0) {
-        setDebouncedSearchWord(searchWord);
-      } else {
-        setPage(1);
-      }
-    }, 300);
+    const timerId = setTimeout(() => {
+      setSearchWord(inputValue);
+    }, 500);
 
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [searchWord]);
-
-  useEffect(() => {
-    if (!debouncedSearchWord.trim()) return;
-
-    setLoading(true);
-    fetch(`https://swapi.dev/api/people/?search=${debouncedSearchWord}`)
-      .then((response) => {
-        if (!response.ok) throw new Error("Network response was not ok.");
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-
-        if (data.results.length === 0) {
-          setInfo("Searching for '" + searchWord + "' did not find anything");
-          setPeople([]);
-        } else {
-          setPeople(data.results);
-          setInfo("");
-        }
-
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, [debouncedSearchWord, setError, setLoading, setPeople]);
+    return () => clearTimeout(timerId);
+  }, [inputValue]);
 
   return (
     <SearchBoxContainer>
       <Input
         type="text"
         placeholder="Search People..."
-        value={searchWord}
-        onChange={(e) => setSearchWord(e.target.value)}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
       />
       <IoSearchSharp />
     </SearchBoxContainer>

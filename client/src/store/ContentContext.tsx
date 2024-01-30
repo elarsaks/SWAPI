@@ -6,14 +6,17 @@ interface ContentContextType {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setPeople: React.Dispatch<React.SetStateAction<Person[]>>;
+  setSearchWord: React.Dispatch<React.SetStateAction<string>>;
 }
 
+// TODO: Default values
 const defaultValue: ContentContextType = {
   setError: () => {},
   setInfo: () => {},
   setLoading: () => {},
   setPage: () => {},
   setPeople: () => {},
+  setSearchWord: () => {},
 };
 
 const ContentContext = React.createContext<ContentContextType>(defaultValue);
