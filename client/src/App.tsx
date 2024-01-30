@@ -30,58 +30,10 @@ function App() {
   return (
     <AppStyles className="App">
       <NavBar />
-
       <Title text="STAR WARS" />
-
       <Menu />
 
       <Content>
-        <Card
-          header={"test"}
-          content={"Info"}
-          dataImage="https://gorilla-labs.com/assets/logo.webp"
-        ></Card>
-        <Card
-          header={"test"}
-          content={"Info"}
-          dataImage="https://gorilla-labs.com/assets/logo.webp"
-        ></Card>
-        <Card
-          header={"test"}
-          content={"Info"}
-          dataImage="https://gorilla-labs.com/assets/logo.webp"
-        ></Card>
-        <Card
-          header={"test"}
-          content={"Info"}
-          dataImage="https://gorilla-labs.com/assets/logo.webp"
-        ></Card>
-        <Card
-          header={"test"}
-          content={"Info"}
-          dataImage="https://gorilla-labs.com/assets/logo.webp"
-        ></Card>
-
-        <Card
-          header={"test"}
-          content={"Info"}
-          dataImage="https://gorilla-labs.com/assets/logo.webp"
-        ></Card>
-        <Card
-          header={"test"}
-          content={"Info"}
-          dataImage="https://gorilla-labs.com/assets/logo.webp"
-        ></Card>
-        <Card
-          header={"test"}
-          content={"Info"}
-          dataImage="https://gorilla-labs.com/assets/logo.webp"
-        ></Card>
-        <Card
-          header={"test"}
-          content={"Info"}
-          dataImage="https://gorilla-labs.com/assets/logo.webp"
-        ></Card>
         <Card
           header={"test"}
           content={"Info"}
