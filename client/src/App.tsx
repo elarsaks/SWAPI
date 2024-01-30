@@ -71,13 +71,7 @@ function App() {
           {!loading &&
             !error &&
             people.map((person: Person, index) => (
-              <Card
-                key={person.url}
-                name={person.name}
-                image={`https://starwars-images-api.s3.eu-north-1.amazonaws.com/${encodeURIComponent(
-                  person.name
-                ).replace(/%20/g, "+")}.jpg`}
-              />
+              <Card key={person.url} name={person.name} />
             ))}
         </Content>
       </div>

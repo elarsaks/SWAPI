@@ -30,8 +30,24 @@ const Card = styled.div`
   }
 `;
 
+const Overlay = styled.div`
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: opacity 0.5s ${returnEasing};
+  opacity: 1;
+  ${Card}:hover & {
+    opacity: 0;
+  }
+`;
+
 const InnerBorder = styled.div`
-  position: relative;
+  position: absolute;
+  z-index: 1;
   height: 90%;
   width: 90%;
   margin: 5%;
@@ -59,23 +75,24 @@ const CardBg = styled.div<{ image: string }>`
 `;
 
 const CardTitle = styled.div`
-  padding-left: 10px;
   position: absolute;
   color: #fff;
   bottom: 0;
   background-color: #000000c4;
   width: 100%;
-  h1 {
-    margin: 5px;
+  z-index: 0;
+  text-align: center;
+
+  h3 {
+    margin-top: 0px;
   }
 `;
 
 interface CardProps {
-  image: string;
-  name: React.ReactNode;
+  name: string;
 }
 
-const CardComponent: React.FC<CardProps> = ({ image, name }) => {
+const CardComponent: React.FC<CardProps> = ({ name }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
@@ -106,6 +123,10 @@ const CardComponent: React.FC<CardProps> = ({ image, name }) => {
     }
   };
 
+  const image = `https://starwars-images-api.s3.eu-north-1.amazonaws.com/${encodeURIComponent(
+    name
+  ).replace(/%20/g, "+")}.jpg`;
+
   return (
     <CardWrap
       x={x}
@@ -116,6 +137,7 @@ const CardComponent: React.FC<CardProps> = ({ image, name }) => {
       ref={cardRef}
     >
       <Card>
+        <Overlay />
         <CardBg image={image} />
         <InnerBorder />
         <CardTitle>
