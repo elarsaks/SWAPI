@@ -66,7 +66,7 @@ function App() {
         <Menu />
 
         <Content>
-          {loading && <p>Loading...</p>}
+          {loading && <p>Loading ... </p>}
           {error && <p>Error: {error}</p>}
           {!loading &&
             !error &&
@@ -74,7 +74,9 @@ function App() {
               <Card
                 key={person.url}
                 name={person.name}
-                image={"https://gorilla-labs.com/assets/logo.webp"}
+                image={`https://starwars-images-api.s3.eu-north-1.amazonaws.com/${encodeURIComponent(
+                  person.name
+                ).replace(/%20/g, "+")}.jpg`}
               />
             ))}
         </Content>
