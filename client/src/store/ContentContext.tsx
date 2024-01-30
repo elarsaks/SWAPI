@@ -4,7 +4,7 @@ interface ContentContextType {
   setSearchWord: React.Dispatch<React.SetStateAction<string>>;
 }
 
-// TODO: Default value
+// TODO: Rename this to serach context
 const defaultValue: ContentContextType = {
   setSearchWord: () => {},
 };
