@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Card from "./components/card/Card";
+import Error from "./components/Error";
 import Footer from "./components/Footer";
 import LoadingCube from "./components/LoadingCube";
 import Menu from "./components/menu/Menu";
@@ -52,13 +53,13 @@ const Content = styled.div<ContentProps>`
 function App() {
   const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("https://swapi.dev/api/people")
+    fetch("https://swapi.dev/api/people/")
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          setError("Something went wrong!");
         }
         return response.json();
       })
@@ -81,7 +82,7 @@ function App() {
 
         <Content loading={loading} error={error ? true : false}>
           {loading && <LoadingCube height="400px" text="Loading ..." />}
-          {error && <p>Error: {error}</p>}
+          {error && <Error message={error} />}
           {!loading &&
             !error &&
             people.map((person: Person, index) => (
