@@ -21,8 +21,8 @@ const AppStyles = styled.div`
 `;
 
 interface ContentProps {
-  loading?: boolean;
-  error?: boolean;
+  $isLoading?: boolean;
+  $isError?: boolean;
 }
 
 const Content = styled.div<ContentProps>`
@@ -30,7 +30,7 @@ const Content = styled.div<ContentProps>`
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  display: ${(props) => (props.loading || props.error ? "flex" : "grid")};
+  display: ${(props) => (props.$isLoading || props.$isError ? "flex" : "grid")};
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 1.5rem;
   padding: 1rem;
@@ -43,7 +43,7 @@ const Content = styled.div<ContentProps>`
 
   /* Apply flex-specific styles only when loading or error is true */
   ${(props) =>
-    (props.loading || props.error) &&
+    (props.$isLoading || props.$isError) &&
     `
     align-items: center;
     flex-direction: column;
@@ -82,7 +82,7 @@ function App() {
       <div>
         <Menu setPage={setPage} page={page} />
 
-        <Content loading={loading} error={error ? true : false}>
+        <Content $isLoading={loading} $isError={error ? true : false}>
           {loading && <LoadingCube height="400px" text="Loading ..." />}
           {error && <Error message={error} />}
           {!loading &&

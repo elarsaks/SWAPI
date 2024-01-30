@@ -48,7 +48,7 @@ const Overlay = styled.div`
 `;
 
 interface InnerBorderProps {
-  error: boolean;
+  $error: boolean;
 }
 
 const InnerBorder = styled.div<InnerBorderProps>`
@@ -58,7 +58,7 @@ const InnerBorder = styled.div<InnerBorderProps>`
   width: 90%;
   margin: 5%;
   border-radius: 5px;
-  opacity: ${(props) => (props.error ? 1 : 0)};
+  opacity: ${(props) => (props.$error ? 1 : 0)};
   transition: opacity 0.5s ${returnEasing};
 
   ${Card}:hover & {
@@ -67,7 +67,7 @@ const InnerBorder = styled.div<InnerBorderProps>`
   }
 `;
 
-const CardBg = styled.div<{ image?: string }>`
+const CardBg = styled.div<{ $image: string }>`
   opacity: 1;
   position: absolute;
   width: 100%;
@@ -75,7 +75,7 @@ const CardBg = styled.div<{ image?: string }>`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image: url(${(props) => props.image});
+  background-image: url(${(props) => props.$image});
   transition: 1s ${returnEasing}, opacity 5s 1s ${returnEasing};
   pointer-events: none;
   display: flex;
@@ -152,12 +152,12 @@ const CardComponent: React.FC<CardProps> = ({ name }) => {
       <Card>
         <Overlay />
         {imageError ? (
-          <InnerBorder error>
+          <InnerBorder $error>
             <Error message="Failed to load image!" />
           </InnerBorder>
         ) : (
           <>
-            <CardBg image={imageName}>
+            <CardBg $image={imageName}>
               {/* Invisible img tag to handle loading error */}
               <img
                 src={imageName}
@@ -166,7 +166,7 @@ const CardComponent: React.FC<CardProps> = ({ name }) => {
                 style={{ display: "none" }}
               />
             </CardBg>
-            <InnerBorder error={false} />
+            <InnerBorder $error={false} />
           </>
         )}
         <CardTitle>
