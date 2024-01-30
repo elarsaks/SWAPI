@@ -47,7 +47,7 @@ function App() {
     <AppStyles className="App">
       <Navigation>Buttons ...</Navigation>
 
-      <Header text="STARWARS" />
+      <Header text="STAR WARS" />
 
       <Menu />
 
