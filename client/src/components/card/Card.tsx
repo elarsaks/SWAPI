@@ -5,7 +5,8 @@ const returnEasing = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
 
 const CardWrap = styled.div<{ x: number; y: number }>`
   margin: 10px;
-  transform: perspective(800px) rotateY(${(props) => props.x}deg) rotateX(${(props) => props.y}deg);
+  transform: perspective(800px) rotateY(${(props) => props.x}deg)
+    rotateX(${(props) => props.y}deg);
   transform-style: preserve-3d;
   transition: transform 0.5s ${returnEasing};
   cursor: pointer;
@@ -18,14 +19,14 @@ const Card = styled.div`
   height: 320px;
   background-color: #00000081;
   overflow: hidden;
-  box-shadow: 0px 0px 10px 5px #051012b8 ;
+  box-shadow: 0px 0px 10px 5px #051012b8;
   border-radius: 10px;
   transition: box-shadow 0.5s ${returnEasing};
   border: 1px solid #ffffff;
 
   &:hover {
     border: 2px solid #0bcee8b8;
-    box-shadow:  0px 0px 30px #10a1b4b8;
+    box-shadow: 0px 0px 30px #10a1b4b8;
   }
 `;
 
@@ -35,11 +36,11 @@ const InnerBorder = styled.div`
   width: 90%;
   margin: 5%;
   border-radius: 5px;
-  opacity: 0; 
+  opacity: 0;
   transition: opacity 0.5s ${returnEasing};
 
   ${Card}:hover & {
-    opacity: 1; 
+    opacity: 1;
     border: 1px solid #0bcee8b8;
   }
 `;
@@ -70,19 +71,19 @@ const CardTitle = styled.div`
 `;
 
 interface CardProps {
-  dataImage: string;
-  header: React.ReactNode;
-  content: React.ReactNode;
+  image: string;
+  name: React.ReactNode;
 }
 
-const CardComponent: React.FC<CardProps> = ({ dataImage, header, content }) => {
+const CardComponent: React.FC<CardProps> = ({ image, name }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
-      const { left, top, width, height } = cardRef.current.getBoundingClientRect();
+      const { left, top, width, height } =
+        cardRef.current.getBoundingClientRect();
       // Mouse position relative to the card
       let xVal = ((e.clientX - left) / width - 0.5) * 2; // Center is 0, edges are -1 to 1
       let yVal = ((e.clientY - top) / height - 0.5) * -2; // Invert Y for a natural "lift" effect
@@ -115,10 +116,10 @@ const CardComponent: React.FC<CardProps> = ({ dataImage, header, content }) => {
       ref={cardRef}
     >
       <Card>
-        <CardBg image={dataImage} />
+        <CardBg image={image} />
         <InnerBorder />
         <CardTitle>
-          <h1>{header}</h1>
+          <h3>{name}</h3>
         </CardTitle>
       </Card>
     </CardWrap>

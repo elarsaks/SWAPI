@@ -1,8 +1,10 @@
+import React, { useEffect, useState } from "react";
+
 import Card from "./components/card/Card";
 import Footer from "./components/Footer";
 import Menu from "./components/menu/Menu";
 import NavBar from "./components/navbar/NavBar";
-import Title from "./components/title/Title"; // Import your HeaderLetter component
+import Title from "./components/title/Title";
 import styled from "styled-components";
 
 const AppStyles = styled.div`
@@ -27,6 +29,29 @@ const Content = styled.div`
 `;
 
 function App() {
+  const [people, setPeople] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch("https://swapi.dev/api/people")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setPeople(data.results);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <AppStyles className="App">
       <NavBar />
@@ -34,11 +59,17 @@ function App() {
       <Menu />
 
       <Content>
-        <Card
-          header={"test"}
-          content={"Info"}
-          dataImage="https://gorilla-labs.com/assets/logo.webp"
-        ></Card>
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error}</p>}
+        {!loading &&
+          !error &&
+          people.map((person: Person, index) => (
+            <Card
+              key={person.url}
+              name={person.name}
+              image={"https://gorilla-labs.com/assets/logo.webp"}
+            />
+          ))}
       </Content>
 
       <Footer />
