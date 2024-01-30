@@ -56,6 +56,8 @@ function App() {
   const [page, setPage] = useState<number>(1);
   const [people, setPeople] = useState<Person[]>([]);
   const [searchWord, setSearchWord] = useState<string>("");
+  const [maxPage, setMaxPage] = useState(1);
+  const MIN_PAGE = 1;
 
   // Set page to 1 every time searchWord changes
   useEffect(() => {
@@ -65,17 +67,24 @@ function App() {
   // Fetch data when page or searchWord changes
   useEffect(() => {
     setLoading(true);
+    setInfo("");
+    setError("");
 
-    // ! Fetching tohether with pagination and searhword is buggy
     fetch(`https://swapi.dev/api/people/?search=${searchWord}&page=${page}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          setError(`HTTP error! status: ${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
+        const calculatedMaxPage = Math.ceil(data.count / 10);
+        setMaxPage(calculatedMaxPage);
         setPeople(data.results);
+        setLoading(false);
+
+        data.results.length === 0 ? setInfo("Nothing found!") : setInfo("");
+        setError("");
         setLoading(false);
       })
       .catch((error: Error) => {
@@ -85,11 +94,6 @@ function App() {
   }, [page, searchWord]);
 
   const ContentContextValue = {
-    setError,
-    setInfo,
-    setLoading,
-    setPage,
-    setPeople,
     setSearchWord,
   };
 
@@ -97,9 +101,9 @@ function App() {
     <ContentContext.Provider value={ContentContextValue}>
       <AppStyles className="App">
         <NavBar />
-        <Title text={"STAR WARS" + page} />
+        <Title text={"STAR WARS"} />
         <div>
-          <Menu setPage={setPage} page={page} />
+          <Menu setPage={setPage} page={page} minPage={1} maxPage={maxPage} />
           <Content $isUtil={loading || error.length > 0 || info.length > 0}>
             {loading && <LoadingCube height="400px" text="Loading ..." />}
             {error && <Util type="error" message={error} />}

@@ -1,3 +1,4 @@
+import React from "react";
 import SearchBox from "./SearchBox";
 import styled from "styled-components";
 
@@ -32,23 +33,33 @@ const MenuStyles = styled.div`
       background-color: white;
       color: black;
     }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
   }
 `;
 
 interface MenuProps {
   setPage: (page: number) => void;
   page: number;
+  minPage: number;
+  maxPage: number;
 }
 
-// TODO: Bring search and pagination here
-
-const Menu: React.FC<MenuProps> = ({ setPage, page }) => {
+const Menu: React.FC<MenuProps> = ({ setPage, page, minPage, maxPage }) => {
   return (
     <MenuStyles>
-      <button onClick={() => setPage(page - 1)}>{"<"}</button>
+      <button onClick={() => setPage(page - 1)} disabled={page <= minPage}>
+        {`< ${page - 1}`}
+      </button>
       <SearchBox />
-      <button onClick={() => setPage(page + 1)}>{">"}</button>{" "}
-      {/* Increment page */}
+      <div>
+        <button onClick={() => setPage(page + 1)} disabled={page >= maxPage}>
+          {`${page + 1} >`}
+        </button>
+      </div>
     </MenuStyles>
   );
 };
