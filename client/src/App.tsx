@@ -51,11 +51,6 @@ const Content = styled.div<ContentProps>`
   `}
 `;
 
-interface Person {
-  name: string;
-  url: string;
-}
-
 function App() {
   const [people, setPeople] = useState<Person[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -79,26 +74,26 @@ function App() {
 
   return (
     <SearchContext.Provider value={searchContextValue}>
-    <AppStyles className="App">
-      <NavBar />
-      <Title text="STAR WARS" />
+      <AppStyles className="App">
+        <NavBar />
+        <Title text="STAR WARS" />
 
-      <div>
-        <Menu setPage={setPage} page={page} />
+        <div>
+          <Menu setPage={setPage} page={page} />
 
-        <Content $isLoading={loading} $isError={error ? true : false}>
-          {loading && <LoadingCube height="400px" text="Loading ..." />}
-          {error && <Error message={error} />}
-          {!loading &&
-            !error &&
-            people.map((person: Person) => (
-              <Card key={person.url} name={person.name} />
-            ))}
-        </Content>
-      </div>
+          <Content $isLoading={loading} $isError={error ? true : false}>
+            {loading && <LoadingCube height="400px" text="Loading ..." />}
+            {error && <Error message={error} />}
+            {!loading &&
+              !error &&
+              people.map((person: Person) => (
+                <Card key={person.url} name={person.name} />
+              ))}
+          </Content>
+        </div>
 
-      <Footer />
-    </AppStyles>
+        <Footer />
+      </AppStyles>
     </SearchContext.Provider>
   );
 }

@@ -7,11 +7,6 @@ interface SearchContextType {
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-interface Person {
-  name: string;
-  url: string;
-}
-
 const defaultValue: SearchContextType = {
   setPeople: () => {},
   setLoading: () => {},

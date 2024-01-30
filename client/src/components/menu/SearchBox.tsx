@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 
+import { IoSearchSharp } from "react-icons/io5";
 import SearchContext from "../../store/SearchContext";
 import styled from "styled-components";
 
-// Styled components remain the same
 const SearchBoxContainer = styled.div`
   display: flex;
   align-items: center;
@@ -24,23 +24,16 @@ const Input = styled.input`
   }
 `;
 
-const Icon = styled.svg`
-  width: 30px;
-  height: 20px;
-  margin-left: -30px;
-`;
-
 const SearchBox: React.FC = () => {
   const [searchWord, setSearchWord] = useState("");
   const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
 
-  // Use context to get functions for updating app state
   const { setPeople, setLoading, setError } = useContext(SearchContext);
 
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchWord(searchWord);
-    }, 300); // Waits 300ms after the user stops typing to set the search word
+    }, 300);
 
     return () => {
       clearTimeout(handler);
@@ -48,7 +41,7 @@ const SearchBox: React.FC = () => {
   }, [searchWord]);
 
   useEffect(() => {
-    if (!debouncedSearchWord.trim()) return; // Avoid searching for empty or whitespace strings
+    if (!debouncedSearchWord.trim()) return;
 
     setLoading(true);
     fetch(`https://swapi.dev/api/people/?search=${debouncedSearchWord}`)
@@ -57,7 +50,7 @@ const SearchBox: React.FC = () => {
         return response.json();
       })
       .then((data) => {
-        setPeople(data.results); // Assuming setSearchResults expects the format data.results provides
+        setPeople(data.results);
         setLoading(false);
       })
       .catch((error) => {
@@ -74,9 +67,7 @@ const SearchBox: React.FC = () => {
         value={searchWord}
         onChange={(e) => setSearchWord(e.target.value)}
       />
-      <Icon viewBox="0 0 20 20">
-        <path d="M12.905 14.32l5.387 5.387-1.587 1.587-5.387-5.387a8 8 0 111.587-1.587zM10 16a6 6 0 100-12 6 6 0 000 12z" />
-      </Icon>
+      <IoSearchSharp />
     </SearchBoxContainer>
   );
 };
