@@ -35,7 +35,7 @@ const SearchBox: React.FC = () => {
     }, 500);
 
     return () => clearTimeout(timerId);
-  }, [inputValue]);
+  }, [inputValue, setSearchWord]);
 
   return (
     <SearchBoxContainer>

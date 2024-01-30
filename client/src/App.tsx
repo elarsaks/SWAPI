@@ -57,7 +57,6 @@ function App() {
   const [people, setPeople] = useState<Person[]>([]);
   const [searchWord, setSearchWord] = useState<string>("");
   const [maxPage, setMaxPage] = useState(1);
-  const MIN_PAGE = 1;
 
   // Set page to 1 every time searchWord changes
   useEffect(() => {
