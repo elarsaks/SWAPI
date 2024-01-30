@@ -1,15 +1,15 @@
-import HeaderLetter from "./HeaderLetter";
+import TitleLetter from "./TitleLetter";
 import styled from "styled-components";
 import { useState } from "react";
 
-const HeaderStyles = styled.div`
+const TitleStyles = styled.div`
   padding-top: 10vh;
   padding-bottom: 2vh;
   display: flex;
   justify-content: center;
 `;
 
-const Header = (props: { text: string }) => {
+const Title = (props: { text: string }) => {
   const letters = props.text.split("");
   // Index is 99, to keep the default state
   const [currentLetterIndex, setCurrentLetterIndex] = useState(99);
@@ -42,7 +42,7 @@ const Header = (props: { text: string }) => {
 
   const renderLetters = () => {
     return letters.map((letter, index) => (
-      <HeaderLetter
+      <TitleLetter
         key={`${index}`}
         letter={letter}
         direction={getDirection(index, currentLetterIndex)}
@@ -51,7 +51,7 @@ const Header = (props: { text: string }) => {
     ));
   };
 
-  return <HeaderStyles>{renderLetters()}</HeaderStyles>;
+  return <TitleStyles>{renderLetters()}</TitleStyles>;
 };
 
-export default Header;
+export default Title;

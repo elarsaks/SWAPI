@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { useEffect, useState } from "react";
 
-const HeaderLetterStyles = styled.div<{
+const TitleLetterStyles = styled.div<{
   direction: number;
   $isClicked: boolean;
 }>`
@@ -30,13 +30,13 @@ const HeaderLetterStyles = styled.div<{
   }
 `;
 
-interface HeaderLetterProps {
+interface TitleLetterProps {
   letter: string;
   direction: number;
   onClick?: () => void;
 }
 
-const HeaderLetter = (props: HeaderLetterProps) => {
+const TitleLetter = (props: TitleLetterProps) => {
   const [clicked, setClicked] = useState(false);
 
   // Reset clicked state when props.direction changes
@@ -52,14 +52,14 @@ const HeaderLetter = (props: HeaderLetterProps) => {
   };
 
   return (
-    <HeaderLetterStyles
+    <TitleLetterStyles
       direction={props.direction}
       $isClicked={clicked}
       onClick={handleClick}
     >
       {props.letter}
-    </HeaderLetterStyles>
+    </TitleLetterStyles>
   );
 };
 
-export default HeaderLetter;
+export default TitleLetter;

@@ -1,5 +1,5 @@
 import Card from "./components/card/Card";
-import Header from "./components/header/Header"; // Import your HeaderLetter component
+import Header from "./components/title/Title"; // Import your HeaderLetter component
 import Menu from "./components/menu/Menu";
 import React from "react";
 import styled from "styled-components";
