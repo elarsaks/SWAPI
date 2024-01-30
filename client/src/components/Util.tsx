@@ -2,7 +2,7 @@ import { MdError } from "react-icons/md";
 import React from "react";
 import styled from "styled-components";
 
-const ErrorStyles = styled.div`
+const UtilStyles = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -19,16 +19,17 @@ const ErrorStyles = styled.div`
   }
 `;
 
-interface ErrorProps {
+interface UtilProps {
   message: string;
+  type: "error" | "info" | "warning";
 }
 
-const Error: React.FC<ErrorProps> = ({ message }) => {
+const Error: React.FC<UtilProps> = ({ message }) => {
   return (
-    <ErrorStyles>
+    <UtilStyles>
       <MdError size="20px" />
       <span>Error: {message}</span>
-    </ErrorStyles>
+    </UtilStyles>
   );
 };
 

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 import Card from "./components/card/Card";
-import Error from "./components/Error";
 import Footer from "./components/Footer";
 import LoadingCube from "./components/LoadingCube";
 import Menu from "./components/menu/Menu";
 import NavBar from "./components/navbar/NavBar";
 import SearchContext from "./store/SearchContext";
 import Title from "./components/title/Title";
+import Util from "./components/Util";
 import styled from "styled-components";
 
 const AppStyles = styled.div`
@@ -55,6 +55,7 @@ function App() {
   const [people, setPeople] = useState<Person[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  const [info, setInfo] = useState<string>("");
   const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
@@ -83,7 +84,8 @@ function App() {
 
           <Content $isLoading={loading} $isError={error ? true : false}>
             {loading && <LoadingCube height="400px" text="Loading ..." />}
-            {error && <Error message={error} />}
+            {error && <Util type="error" message={error} />}
+            {info && <Util type="info" message={info} />}
             {!loading &&
               !error &&
               people.map((person: Person) => (

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled, { css } from "styled-components";
 
-import Error from "../Error";
+import Util from "../Util";
 
 const returnEasing = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
 
@@ -153,7 +153,7 @@ const CardComponent: React.FC<CardProps> = ({ name }) => {
         <Overlay />
         {imageError ? (
           <InnerBorder $error>
-            <Error message="Failed to load image!" />
+            <Util type="error" message="Failed to load image!" />
           </InnerBorder>
         ) : (
           <>
