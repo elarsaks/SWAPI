@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import styled, { css } from "styled-components";
 
+import defaultImage from "../../assets/logo-w.png";
+
 const returnEasing = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
 
 const CardWrap = styled.div<{ x: number; y: number }>`
@@ -61,7 +63,7 @@ const InnerBorder = styled.div`
   }
 `;
 
-const CardBg = styled.div<{ image: string }>`
+const CardBg = styled.div<{ image?: string }>`
   opacity: 1;
   position: absolute;
   width: 100%;
@@ -72,6 +74,9 @@ const CardBg = styled.div<{ image: string }>`
   background-image: url(${(props) => props.image});
   transition: 1s ${returnEasing}, opacity 5s 1s ${returnEasing};
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const CardTitle = styled.div`
@@ -96,6 +101,16 @@ const CardComponent: React.FC<CardProps> = ({ name }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
+
+  const [image, setImage] = useState(
+    `https://starwars-images-api.s3.eu-north-1.amazonaws.com/${encodeURIComponent(
+      name.toString()
+    ).replace(/%20/g, "+")}.jpg`
+  );
+
+  const handleImageError = () => {
+    setImage(defaultImage); // Update the image state to the default logo
+  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
@@ -123,10 +138,6 @@ const CardComponent: React.FC<CardProps> = ({ name }) => {
     }
   };
 
-  const image = `https://starwars-images-api.s3.eu-north-1.amazonaws.com/${encodeURIComponent(
-    name
-  ).replace(/%20/g, "+")}.jpg`;
-
   return (
     <CardWrap
       x={x}
@@ -138,7 +149,15 @@ const CardComponent: React.FC<CardProps> = ({ name }) => {
     >
       <Card>
         <Overlay />
-        <CardBg image={image} />
+        <CardBg image={image}>
+          {/* Invisible img tag to handle loading error */}
+          <img
+            src={image}
+            alt={name}
+            onError={handleImageError}
+            style={{ display: "none" }}
+          />
+        </CardBg>
         <InnerBorder />
         <CardTitle>
           <h3>{name}</h3>
