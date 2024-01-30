@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import styled, { css } from "styled-components";
 
 import Util from "../Util";
+import styled from "styled-components";
 
 const returnEasing = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
 
