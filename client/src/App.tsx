@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Card from "./components/card/Card";
 import Error from "./components/Error";
@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import LoadingCube from "./components/LoadingCube";
 import Menu from "./components/menu/Menu";
 import NavBar from "./components/navbar/NavBar";
+import SearchContext from "./store/SearchContext";
 import Title from "./components/title/Title";
 import styled from "styled-components";
 
@@ -50,31 +51,34 @@ const Content = styled.div<ContentProps>`
   `}
 `;
 
+interface Person {
+  name: string;
+  url: string;
+}
+
 function App() {
-  const [people, setPeople] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [page, setPage] = useState(1);
+  const [people, setPeople] = useState<Person[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
-    fetch("https://swapi.dev/api/people/?page=" + page)
-      .then((response) => {
-        if (!response.ok) {
-          setError("Something went wrong!");
-        }
-        return response.json();
-      })
+    fetch(`https://swapi.dev/api/people/?page=${page}`)
+      .then((response) => response.json())
       .then((data) => {
         setPeople(data.results);
         setLoading(false);
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         setError(error.message);
         setLoading(false);
       });
   }, [page]);
 
+  const searchContextValue = { setPeople, setLoading, setError, setPage };
+
   return (
+    <SearchContext.Provider value={searchContextValue}>
     <AppStyles className="App">
       <NavBar />
       <Title text="STAR WARS" />
@@ -95,6 +99,7 @@ function App() {
 
       <Footer />
     </AppStyles>
+    </SearchContext.Provider>
   );
 }
 
