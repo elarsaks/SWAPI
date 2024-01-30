@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
+import ContentContext from "../../store/ContentContext";
 import { IoSearchSharp } from "react-icons/io5";
-import SearchContext from "../../store/SearchContext";
 import styled from "styled-components";
 
 const SearchBoxContainer = styled.div`
@@ -28,13 +28,15 @@ const SearchBox: React.FC = () => {
   const [searchWord, setSearchWord] = useState("");
   const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
 
-  const { setInfo, setPeople, setLoading, setError } =
-    useContext(SearchContext);
+  const { setError, setInfo, setLoading, setPage, setPeople } =
+    useContext(ContentContext);
 
   useEffect(() => {
     const handler = setTimeout(() => {
       if (searchWord.length > 0) {
         setDebouncedSearchWord(searchWord);
+      } else {
+        setPage(1);
       }
     }, 300);
 
@@ -53,6 +55,8 @@ const SearchBox: React.FC = () => {
         return response.json();
       })
       .then((data) => {
+        console.log(data);
+
         if (data.results.length === 0) {
           setInfo("Searching for '" + searchWord + "' did not find anything");
           setPeople([]);

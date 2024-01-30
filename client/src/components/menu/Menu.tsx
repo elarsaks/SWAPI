@@ -40,6 +40,8 @@ interface MenuProps {
   page: number;
 }
 
+// TODO: Bring search and pagination here
+
 const Menu: React.FC<MenuProps> = ({ setPage, page }) => {
   return (
     <MenuStyles>

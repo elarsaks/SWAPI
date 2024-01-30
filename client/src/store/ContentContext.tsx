@@ -1,6 +1,6 @@
 import React from "react";
 
-interface SearchContextType {
+interface ContentContextType {
   setError: React.Dispatch<React.SetStateAction<string>>;
   setInfo: React.Dispatch<React.SetStateAction<string>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,7 +8,7 @@ interface SearchContextType {
   setPeople: React.Dispatch<React.SetStateAction<Person[]>>;
 }
 
-const defaultValue: SearchContextType = {
+const defaultValue: ContentContextType = {
   setError: () => {},
   setInfo: () => {},
   setLoading: () => {},
@@ -16,6 +16,6 @@ const defaultValue: SearchContextType = {
   setPeople: () => {},
 };
 
-const SearchContext = React.createContext<SearchContextType>(defaultValue);
+const ContentContext = React.createContext<ContentContextType>(defaultValue);
 
-export default SearchContext;
+export default ContentContext;

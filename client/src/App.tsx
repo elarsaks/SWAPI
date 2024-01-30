@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import Card from "./components/card/Card";
+import ContentContext from "./store/ContentContext";
 import Footer from "./components/Footer";
 import LoadingCube from "./components/LoadingCube";
 import Menu from "./components/menu/Menu";
 import NavBar from "./components/navbar/NavBar";
-import SearchContext from "./store/SearchContext";
 import Title from "./components/title/Title";
 import Util from "./components/Util";
 import styled from "styled-components";
@@ -50,11 +50,11 @@ const Content = styled.div<ContentProps>`
 `;
 
 function App() {
-  const [people, setPeople] = useState<Person[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [info, setInfo] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
+  const [people, setPeople] = useState<Person[]>([]);
 
   useEffect(() => {
     fetch(`https://swapi.dev/api/people/?page=${page}`)
@@ -69,7 +69,7 @@ function App() {
       });
   }, [page]);
 
-  const searchContextValue = {
+  const ContentContextValue = {
     setPeople,
     setLoading,
     setError,
@@ -78,7 +78,7 @@ function App() {
   };
 
   return (
-    <SearchContext.Provider value={searchContextValue}>
+    <ContentContext.Provider value={ContentContextValue}>
       <AppStyles className="App">
         <NavBar />
         <Title text="STAR WARS" />
@@ -100,7 +100,7 @@ function App() {
 
         <Footer />
       </AppStyles>
-    </SearchContext.Provider>
+    </ContentContext.Provider>
   );
 }
 
