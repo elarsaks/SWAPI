@@ -13,8 +13,8 @@ const CardWrap = styled.div<{ x: number; y: number }>`
 
 const Card = styled.div`
   position: relative;
-  flex: 0 0 240px;
-  width: 240px;
+  flex: 0 0 250px;
+  width: 250px;
   height: 320px;
   background-color: #00000081;
   overflow: hidden;

@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { useState } from "react";
 
 const HeaderStyles = styled.div`
-  padding-top: 10vh;
+  padding-top: 5vh;
+  padding-bottom: 3vh;
   display: flex;
   justify-content: center;
 `;

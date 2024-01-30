@@ -19,7 +19,9 @@ const HeaderLetterStyles = styled.div<{ direction: number, $isClicked: boolean }
     color: red;
   }
 
-  // TODO: Mobile
+  @media (max-width: 768px)  {
+    font-size: 1.2rem;
+  }
 `;
 
 interface HeaderLetterProps {
