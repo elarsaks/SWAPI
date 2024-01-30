@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
-
 import SearchBox from "./SearchBox";
+import styled from "styled-components";
 
 const MenuStyles = styled.div`
   display: flex;
@@ -28,6 +26,11 @@ const MenuStyles = styled.div`
     display: inline-block;
     background-color: rgba(0, 0, 0, 0.3);
     cursor: pointer;
+
+    &:hover {
+      background-color: white;
+      color: black;
+    }
   }
 `;
 

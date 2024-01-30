@@ -1,7 +1,7 @@
 import Card from "./components/card/Card";
-import Header from "./components/title/Title"; // Import your HeaderLetter component
 import Menu from "./components/menu/Menu";
-import React from "react";
+import NavBar from "./components/navbar/NavBar";
+import Title from "./components/title/Title"; // Import your HeaderLetter component
 import styled from "styled-components";
 
 const AppStyles = styled.div`
@@ -9,14 +9,6 @@ const AppStyles = styled.div`
   padding: 0;
   background-color: #2a7496;
   min-height: 100vh;
-`;
-
-const Navigation = styled.div`
-  position: absolute;
-  margin-top: 0;
-  background-color: #000000;
-  width: 100%;
-  min-height: 5vh;
 `;
 
 const Content = styled.div`
@@ -45,9 +37,9 @@ const Footer = styled.div`
 function App() {
   return (
     <AppStyles className="App">
-      <Navigation>Buttons ...</Navigation>
+      <NavBar />
 
-      <Header text="STAR WARS" />
+      <Title text="STAR WARS" />
 
       <Menu />
 
