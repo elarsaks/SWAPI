@@ -1,5 +1,6 @@
-import styled, { css } from "styled-components";
 import { useEffect, useState } from "react";
+
+import styled from "styled-components";
 
 const TitleLetterStyles = styled.div<{
   direction: number;
