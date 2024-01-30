@@ -54,10 +54,16 @@ function App() {
   const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+<<<<<<< HEAD
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     fetch("https://swapi.dev/api/people/?page=" + page)
+=======
+
+  useEffect(() => {
+    fetch("https://swapi.dev/api/people/")
+>>>>>>> f345773640b932ab6cb37a0e4cea10bba92c0538
       .then((response) => {
         if (!response.ok) {
           setError("Something went wrong!");
