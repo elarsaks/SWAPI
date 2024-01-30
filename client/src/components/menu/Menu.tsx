@@ -9,6 +9,7 @@ const MenuStyles = styled.div`
   letter-spacing: 3px;
   justify-content: space-between;
   max-width: 1000px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   padding: 1rem;

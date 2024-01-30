@@ -4,7 +4,6 @@ import React from "react";
 import styled from "styled-components";
 
 const FooterStyles = styled.footer`
-  position: absolute;
   bottom: 0;
   display: flex;
   flex-direction: row;

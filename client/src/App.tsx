@@ -8,6 +8,10 @@ import Title from "./components/title/Title";
 import styled from "styled-components";
 
 const AppStyles = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: row;
+  justify-content: space-between;
   margin: 0;
   padding: 0;
   background-color: #2a7496;
@@ -16,6 +20,7 @@ const AppStyles = styled.div`
 
 const Content = styled.div`
   max-width: 1000px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   display: grid;
@@ -26,6 +31,7 @@ const Content = styled.div`
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.5);
   place-items: center;
+  min-height: 50vh;
 `;
 
 function App() {
@@ -56,21 +62,23 @@ function App() {
     <AppStyles className="App">
       <NavBar />
       <Title text="STAR WARS" />
-      <Menu />
+      <div>
+        <Menu />
 
-      <Content>
-        {loading && <p>Loading...</p>}
-        {error && <p>Error: {error}</p>}
-        {!loading &&
-          !error &&
-          people.map((person: Person, index) => (
-            <Card
-              key={person.url}
-              name={person.name}
-              image={"https://gorilla-labs.com/assets/logo.webp"}
-            />
-          ))}
-      </Content>
+        <Content>
+          {loading && <p>Loading...</p>}
+          {error && <p>Error: {error}</p>}
+          {!loading &&
+            !error &&
+            people.map((person: Person, index) => (
+              <Card
+                key={person.url}
+                name={person.name}
+                image={"https://gorilla-labs.com/assets/logo.webp"}
+              />
+            ))}
+        </Content>
+      </div>
 
       <Footer />
     </AppStyles>
