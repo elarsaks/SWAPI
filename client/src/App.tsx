@@ -19,6 +19,7 @@ const AppStyles = styled.div`
   padding: 0;
   background-color: #2a7496;
   min-height: 100vh;
+  width: 100%;
 `;
 
 interface ContentProps {
@@ -47,6 +48,14 @@ const Content = styled.div<ContentProps>`
     align-items: center;
     flex-direction: column;
   `}
+
+  @media (max-width: 768px) {
+    padding: 0;
+    width: 96vw;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    padding-top: 5vh;
+  }
 `;
 
 function App() {

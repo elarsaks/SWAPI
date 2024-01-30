@@ -38,6 +38,18 @@ const MenuStyles = styled.div`
       cursor: not-allowed;
       opacity: 0.5;
     }
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      margin: 3px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0;
+    width: 96vw;
+    margin-left: 2vw;
+    margin-right: 2vw;
   }
 `;
 
@@ -55,11 +67,10 @@ const Menu: React.FC<MenuProps> = ({ setPage, page, minPage, maxPage }) => {
         {`< ${page - 1}`}
       </button>
       <SearchBox />
-      <div>
-        <button onClick={() => setPage(page + 1)} disabled={page >= maxPage}>
-          {`${page + 1} >`}
-        </button>
-      </div>
+
+      <button onClick={() => setPage(page + 1)} disabled={page >= maxPage}>
+        {`${page + 1} >`}
+      </button>
     </MenuStyles>
   );
 };

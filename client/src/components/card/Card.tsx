@@ -154,6 +154,10 @@ const CardComponent: React.FC<CardProps> = ({ name }) => {
         {imageError ? (
           <InnerBorder $error>
             <Util type="error" message="Failed to load image!" />
+            <Util
+              type="info"
+              message="Image was not in the dataset that I used."
+            />
           </InnerBorder>
         ) : (
           <>

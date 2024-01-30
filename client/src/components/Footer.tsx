@@ -29,6 +29,10 @@ const IconLink = styled.a`
   &:hover {
     color: #47eaff;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.7rem;
+  }
 `;
 
 const Footer: React.FC = () => {

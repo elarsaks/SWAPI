@@ -7,6 +7,8 @@ const TitleStyles = styled.div`
   padding-bottom: 2vh;
   display: flex;
   justify-content: center;
+
+  
 `;
 
 const Title = (props: { text: string }) => {

@@ -5,28 +5,25 @@ const TitleLetterStyles = styled.div<{
   direction: number;
   $isClicked: boolean;
 }>`
-  ${(props) => css`
-    color: ${props.$isClicked
-      ? "red"
-      : props.direction < 0
-      ? "yellow"
-      : "white"};
-    transform: translateY(${props.direction}px);
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 1rem;
-    transition: all 1s;
-    cursor: pointer;
-  `}
+  color: ${(props) =>
+    props.$isClicked ? "red" : props.direction < 0 ? "yellow" : "white"};
+  transform: translateY(${(props) => props.direction}px);
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+  transition: all 1s;
+  cursor: pointer;
 
   &:hover {
-    transition: all 1s;
     transition: color 100ms;
     color: red;
   }
 
   @media (max-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    padding: 0.2rem;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
   }
 `;
 

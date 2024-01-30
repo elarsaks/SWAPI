@@ -9,8 +9,14 @@ const SearchBoxContainer = styled.div`
   align-items: center;
   border-radius: 5px;
   padding: 5px;
-  width: 250px;
+  width: 100%;
+  max-width: 250px;
   border: 1px solid #ffffffb8;
+
+  @media (max-width: 768px) {
+    max-width: 200px;
+    margin: 3px;
+  }
 `;
 
 const Input = styled.input`
@@ -19,6 +25,7 @@ const Input = styled.input`
   border: 1px solid #001113b8;
   border-radius: 5px;
   padding: 10px;
+
   &:focus {
     outline: none;
   }
