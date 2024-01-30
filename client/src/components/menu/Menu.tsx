@@ -35,13 +35,18 @@ const MenuStyles = styled.div`
   }
 `;
 
-const Menu = () => {
+interface MenuProps {
+  setPage: (page: number) => void;
+  page: number;
+}
+
+const Menu: React.FC<MenuProps> = ({ setPage, page }) => {
   return (
     <MenuStyles>
-      <button>{"<"}</button>
-
+      <button onClick={() => setPage(page - 1)}>{"<"}</button>
       <SearchBox />
-      <button>{">"}</button>
+      <button onClick={() => setPage(page + 1)}>{">"}</button>{" "}
+      {/* Increment page */}
     </MenuStyles>
   );
 };

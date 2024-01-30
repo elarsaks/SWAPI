@@ -54,9 +54,10 @@ function App() {
   const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetch("https://swapi.dev/api/people/")
+    fetch("https://swapi.dev/api/people/?page=" + page)
       .then((response) => {
         if (!response.ok) {
           setError("Something went wrong!");
@@ -71,14 +72,15 @@ function App() {
         setError(error.message);
         setLoading(false);
       });
-  }, []);
+  }, [page]);
 
   return (
     <AppStyles className="App">
       <NavBar />
       <Title text="STAR WARS" />
+
       <div>
-        <Menu />
+        <Menu setPage={setPage} page={page} />
 
         <Content loading={loading} error={error ? true : false}>
           {loading && <LoadingCube height="400px" text="Loading ..." />}
