@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Card from "./components/card/Card";
 import Footer from "./components/Footer";
+import LoadingCube from "./components/LoadingCube";
 import Menu from "./components/menu/Menu";
 import NavBar from "./components/navbar/NavBar";
 import Title from "./components/title/Title";
@@ -18,12 +19,17 @@ const AppStyles = styled.div`
   min-height: 100vh;
 `;
 
-const Content = styled.div`
+interface ContentProps {
+  loading?: boolean;
+  error?: boolean;
+}
+
+const Content = styled.div<ContentProps>`
   max-width: 1000px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  display: grid;
+  display: ${(props) => (props.loading || props.error ? "flex" : "grid")};
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 1.5rem;
   padding: 1rem;
@@ -31,7 +37,16 @@ const Content = styled.div`
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.5);
   place-items: center;
+  justify-content: center;
   min-height: 50vh;
+
+  /* Apply flex-specific styles only when loading or error is true */
+  ${(props) =>
+    (props.loading || props.error) &&
+    `
+    align-items: center;
+    flex-direction: column;
+  `}
 `;
 
 function App() {
@@ -48,7 +63,6 @@ function App() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setPeople(data.results);
         setLoading(false);
       })
@@ -65,8 +79,8 @@ function App() {
       <div>
         <Menu />
 
-        <Content>
-          {loading && <p>Loading ... </p>}
+        <Content loading={loading} error={error ? true : false}>
+          {loading && <LoadingCube height="400px" text="Loading ..." />}
           {error && <p>Error: {error}</p>}
           {!loading &&
             !error &&
