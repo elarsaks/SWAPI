@@ -28,11 +28,14 @@ const SearchBox: React.FC = () => {
   const [searchWord, setSearchWord] = useState("");
   const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
 
-  const { setPeople, setLoading, setError } = useContext(SearchContext);
+  const { setInfo, setPeople, setLoading, setError } =
+    useContext(SearchContext);
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedSearchWord(searchWord);
+      if (searchWord.length > 0) {
+        setDebouncedSearchWord(searchWord);
+      }
     }, 300);
 
     return () => {
@@ -50,7 +53,14 @@ const SearchBox: React.FC = () => {
         return response.json();
       })
       .then((data) => {
-        setPeople(data.results);
+        if (data.results.length === 0) {
+          setInfo("Searching for '" + searchWord + "' did not find anything");
+          setPeople([]);
+        } else {
+          setPeople(data.results);
+          setInfo("");
+        }
+
         setLoading(false);
       })
       .catch((error) => {

@@ -22,8 +22,7 @@ const AppStyles = styled.div`
 `;
 
 interface ContentProps {
-  $isLoading?: boolean;
-  $isError?: boolean;
+  $isUtil?: boolean;
 }
 
 const Content = styled.div<ContentProps>`
@@ -31,7 +30,7 @@ const Content = styled.div<ContentProps>`
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  display: ${(props) => (props.$isLoading || props.$isError ? "flex" : "grid")};
+  display: ${(props) => (props.$isUtil ? "flex" : "grid")};
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 1.5rem;
   padding: 1rem;
@@ -42,9 +41,8 @@ const Content = styled.div<ContentProps>`
   justify-content: center;
   min-height: 50vh;
 
-  /* Apply flex-specific styles only when loading or error is true */
   ${(props) =>
-    (props.$isLoading || props.$isError) &&
+    props.$isUtil &&
     `
     align-items: center;
     flex-direction: column;
@@ -71,7 +69,13 @@ function App() {
       });
   }, [page]);
 
-  const searchContextValue = { setPeople, setLoading, setError, setPage };
+  const searchContextValue = {
+    setPeople,
+    setLoading,
+    setError,
+    setPage,
+    setInfo,
+  };
 
   return (
     <SearchContext.Provider value={searchContextValue}>
@@ -82,7 +86,7 @@ function App() {
         <div>
           <Menu setPage={setPage} page={page} />
 
-          <Content $isLoading={loading} $isError={error ? true : false}>
+          <Content $isUtil={loading || error.length > 0 || info.length > 0}>
             {loading && <LoadingCube height="400px" text="Loading ..." />}
             {error && <Util type="error" message={error} />}
             {info && <Util type="info" message={info} />}
