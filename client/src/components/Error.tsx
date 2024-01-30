@@ -12,6 +12,7 @@ const ErrorStyles = styled.div`
   border: 1px solid #e91e63;
   padding: 20px;
   border-radius: 5px;
+  margin: 5px;
 
   span {
     margin: 5px;

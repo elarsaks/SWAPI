@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled, { css } from "styled-components";
 
-import defaultImage from "../../assets/logo-w.png";
+import Error from "../Error";
 
 const returnEasing = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
 
@@ -47,14 +47,18 @@ const Overlay = styled.div`
   }
 `;
 
-const InnerBorder = styled.div`
+interface InnerBorderProps {
+  error: boolean;
+}
+
+const InnerBorder = styled.div<InnerBorderProps>`
   position: absolute;
   z-index: 1;
   height: 90%;
   width: 90%;
   margin: 5%;
   border-radius: 5px;
-  opacity: 0;
+  opacity: ${(props) => (props.error ? 1 : 0)};
   transition: opacity 0.5s ${returnEasing};
 
   ${Card}:hover & {
@@ -101,32 +105,26 @@ const CardComponent: React.FC<CardProps> = ({ name }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-
-  const [image, setImage] = useState(
-    `https://starwars-images-api.s3.eu-north-1.amazonaws.com/${encodeURIComponent(
-      name.toString()
-    ).replace(/%20/g, "+")}.jpg`
-  );
+  const [imageError, setImageError] = useState(false); // State to track image error
 
   const handleImageError = () => {
-    setImage(defaultImage); // Update the image state to the default logo
+    setImageError(true); // Set the error state to true
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
       const { left, top, width, height } =
         cardRef.current.getBoundingClientRect();
-      // Mouse position relative to the card
-      let xVal = ((e.clientX - left) / width - 0.5) * 2; // Center is 0, edges are -1 to 1
-      let yVal = ((e.clientY - top) / height - 0.5) * -2; // Invert Y for a natural "lift" effect
-      setX(xVal * 10); // Adjust for a subtle effect
+      let xVal = ((e.clientX - left) / width - 0.5) * 2;
+      let yVal = ((e.clientY - top) / height - 0.5) * -2;
+      setX(xVal * 10);
       setY(yVal * 10);
     }
   };
 
   const handleMouseEnter = () => {
     if (cardRef.current) {
-      cardRef.current.style.transition = "none"; // Disable transition for immediate response
+      cardRef.current.style.transition = "none";
     }
   };
 
@@ -137,6 +135,10 @@ const CardComponent: React.FC<CardProps> = ({ name }) => {
       setY(0);
     }
   };
+
+  const imageName = `https://starwars-images-api.s3.eu-north-1.amazonaws.com/${encodeURIComponent(
+    name.toString()
+  ).replace(/%20/g, "+")}.jpg`;
 
   return (
     <CardWrap
@@ -149,16 +151,24 @@ const CardComponent: React.FC<CardProps> = ({ name }) => {
     >
       <Card>
         <Overlay />
-        <CardBg image={image}>
-          {/* Invisible img tag to handle loading error */}
-          <img
-            src={image}
-            alt={name}
-            onError={handleImageError}
-            style={{ display: "none" }}
-          />
-        </CardBg>
-        <InnerBorder />
+        {imageError ? (
+          <InnerBorder error>
+            <Error message="Failed to load image!" />
+          </InnerBorder>
+        ) : (
+          <>
+            <CardBg image={imageName}>
+              {/* Invisible img tag to handle loading error */}
+              <img
+                src={imageName}
+                alt={name}
+                onError={handleImageError}
+                style={{ display: "none" }}
+              />
+            </CardBg>
+            <InnerBorder error={false} />
+          </>
+        )}
         <CardTitle>
           <h3>{name}</h3>
         </CardTitle>
