@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
+import { useEffect, useState } from "react";
 
-// Adjusted styled component to use props for conditional CSS, not as a DOM attribute
-const HeaderLetterStyles = styled.div<{ direction: number, $isClicked: boolean }>`
+const HeaderLetterStyles = styled.div<{
+  direction: number;
+  $isClicked: boolean;
+}>`
   ${(props) => css`
-    color: ${props.$isClicked ? 'red' : (props.direction < 0 ? 'yellow' : 'white')};
+    color: ${props.$isClicked
+      ? "red"
+      : props.direction < 0
+      ? "yellow"
+      : "white"};
     transform: translateY(${props.direction}px);
     font-size: 2rem;
     font-weight: bold;
@@ -19,7 +25,7 @@ const HeaderLetterStyles = styled.div<{ direction: number, $isClicked: boolean }
     color: red;
   }
 
-  @media (max-width: 768px)  {
+  @media (max-width: 768px) {
     font-size: 1.2rem;
   }
 `;
@@ -49,7 +55,8 @@ const HeaderLetter = (props: HeaderLetterProps) => {
     <HeaderLetterStyles
       direction={props.direction}
       $isClicked={clicked}
-      onClick={handleClick}>
+      onClick={handleClick}
+    >
       {props.letter}
     </HeaderLetterStyles>
   );

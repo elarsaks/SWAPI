@@ -1,5 +1,6 @@
 import Card from "./components/card/Card";
-import Header from "./components/header/Index"; // Import your HeaderLetter component
+import Header from "./components/header/Header"; // Import your HeaderLetter component
+import Menu from "./components/menu/Menu";
 import React from "react";
 import styled from "styled-components";
 
@@ -11,40 +12,11 @@ const AppStyles = styled.div`
 `;
 
 const Navigation = styled.div`
-  // TODO: Build Navigation component
-  position: fixed;
+  position: absolute;
   margin-top: 0;
   background-color: #000000;
   width: 100%;
   min-height: 5vh;
-`;
-
-const Menu = styled.div`
-  display: flex;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
-  letter-spacing: 3px;
-  justify-content: space-between;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1rem;
-  border: 1px solid white;
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.5);
-
-  button {
-    color: white;
-    font-size: 2rem;
-    border: 1px solid white;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    background-color: rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-  }
 `;
 
 const Content = styled.div`
@@ -66,6 +38,7 @@ const Footer = styled.div`
   background-color: black;
   width: 100%;
   height: 5vh;
+  margin-top: 10vh;
   bottom: 0;
 `;
 
@@ -76,11 +49,7 @@ function App() {
 
       <Header text="STARWARS" />
 
-      <Menu>
-        <button>{"<"}</button>
-        PEOPLE
-        <button>{">"}</button>
-      </Menu>
+      <Menu />
 
       <Content>
         <Card
@@ -142,7 +111,6 @@ function App() {
 }
 
 export default App;
-
 
 // const dummy = {
 //   "count": 82,
