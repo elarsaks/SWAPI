@@ -52,6 +52,11 @@ const ModalContent = styled.div`
       }
     }
 
+    h4 {
+      margin-bottom: 0;
+      color: #850b0b;
+    }
+
     button {
       font-size: 1.5rem;
       border-radius: 5px;
@@ -77,12 +82,18 @@ interface LoginModalProps {
 const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [failureMessage, setFailureMessage] = useState<string>("");
   const { login } = useAuth();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login(username, password);
-    onClose();
+    const loginMessage = login(username, password);
+
+    if (loginMessage === "success") {
+      onClose();
+    } else {
+      setFailureMessage(loginMessage);
+    }
   };
 
   return (
@@ -109,6 +120,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
+          {failureMessage && <h4>Failure Message</h4>}
 
           <button type="submit">Login</button>
         </form>
