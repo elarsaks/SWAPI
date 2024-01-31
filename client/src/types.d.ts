@@ -1,3 +1,5 @@
+
+
 type Person = {
     name: string;
     birth_year: string;
@@ -20,3 +22,6 @@ type Person = {
 type PeopleResponse = {
     results: Person[];
 };
+
+
+

@@ -49,7 +49,7 @@ const LoginButton = styled.button`
 
 const NavBar: React.FC = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, username } = useAuth();
 
   const handleLoginClick = () => {
     setIsLoginModalOpen(true);
@@ -64,7 +64,7 @@ const NavBar: React.FC = () => {
       <LeftContainer>
         <Logo src={logoImage} alt="Logo" />
         <h3>
-          <UserName>{isAuthenticated ? "User Name" : "STAR WARS"}</UserName>
+          <UserName>{isAuthenticated ? username : "STAR WARS"}</UserName>
         </h3>
       </LeftContainer>
       <div>
