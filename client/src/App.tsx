@@ -49,7 +49,7 @@ const Content = styled.div<ContentProps>`
     flex-direction: column;
   `}
 
-  @media (max-width: 768px) {
+  @media (max-width: 1100px) {
     padding: 0;
     width: 96vw;
     margin-left: 2vw;
