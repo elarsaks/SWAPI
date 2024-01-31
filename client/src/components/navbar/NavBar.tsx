@@ -44,7 +44,7 @@ const LoginButton = styled.button`
 `;
 
 const NavBar: React.FC = () => {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   const userName = "User Name";
 
   return (

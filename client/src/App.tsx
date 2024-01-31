@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { AuthProvider } from "./store/AuthContext";
 import Card from "./components/card/Card";
 import Footer from "./components/Footer";
 import LoadingCube from "./components/LoadingCube";
@@ -106,26 +107,28 @@ function App() {
   };
 
   return (
-    <SearchContext.Provider value={SearchContextValue}>
-      <AppStyles className="App">
-        <NavBar />
-        <Title text={"STAR WARS"} />
-        <div>
-          <Menu setPage={setPage} page={page} minPage={1} maxPage={maxPage} />
-          <Content $isUtil={loading || error.length > 0 || info.length > 0}>
-            {loading && <LoadingCube height="400px" text="Loading ..." />}
-            {error && <Util type="error" message={error} />}
-            {info && <Util type="info" message={info} />}
-            {!loading &&
-              !error &&
-              people.map((person: Person) => (
-                <Card key={person.url} name={person.name} />
-              ))}
-          </Content>
-        </div>
-        <Footer />
-      </AppStyles>
-    </SearchContext.Provider>
+    <AuthProvider>
+      <SearchContext.Provider value={SearchContextValue}>
+        <AppStyles className="App">
+          <NavBar />
+          <Title text={"STAR WARS"} />
+          <div>
+            <Menu setPage={setPage} page={page} minPage={1} maxPage={maxPage} />
+            <Content $isUtil={loading || error.length > 0 || info.length > 0}>
+              {loading && <LoadingCube height="400px" text="Loading ..." />}
+              {error && <Util type="error" message={error} />}
+              {info && <Util type="info" message={info} />}
+              {!loading &&
+                !error &&
+                people.map((person: Person) => (
+                  <Card key={person.url} name={person.name} />
+                ))}
+            </Content>
+          </div>
+          <Footer />
+        </AppStyles>
+      </SearchContext.Provider>
+    </AuthProvider>
   );
 }
 
