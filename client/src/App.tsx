@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { AuthProvider } from "./store/AuthContext";
+import AuthProvider from "./store/AuthProvider";
 import Card from "./components/card/Card";
 import Footer from "./components/Footer";
 import LoadingCube from "./components/LoadingCube";
