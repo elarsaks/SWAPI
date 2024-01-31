@@ -17,11 +17,11 @@ const ModalBackground = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background-color: rgba(42, 116, 150, 1);
-  border: 1px solid white;
-  padding: 1rem 2rem 2rem 2rem;
-
+  background-color: #2a7496; /* Softer shade */
+  border: 1px solid #ffffff;
+  padding: 2rem;
   border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 2000;
 
   form {
@@ -29,47 +29,38 @@ const ModalContent = styled.div`
     flex-direction: column;
 
     p {
-      font-size: 1.3rem;
-      color: white;
-      margin-bottom: 5px;
-
-      span {
-        color: black;
-        font-size: 1.2rem;
-        font-style: italic;
-      }
+      font-size: 1.2rem;
+      color: #ffffff;
+      margin-bottom: 10px;
     }
 
     input {
       font-size: 1rem;
       border-radius: 5px;
-      border: none;
-      box-shadow: none;
+      border: 2px solid #0056b3; /* Enhanced border */
       padding: 0.5rem;
+      margin-bottom: 1rem; /* Added spacing */
 
       &:focus {
         outline: none;
+        border-color: #007bff; /* Focus color */
       }
     }
 
     h4 {
-      margin-bottom: 0;
-      color: #850b0b;
+      color: #ff6347; /* Tomato for error messages */
+      font-weight: bold;
+      margin-top: 0.5rem;
     }
 
     button {
-      font-size: 1.5rem;
-      border-radius: 5px;
-      border: none;
-      box-shadow: none;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: #0056b3; /* Consistent with focus color */
       color: white;
-      cursor: pointer;
-      margin-top: 1.5rem;
-      padding: 1rem 2rem 1rem 2rem;
+      padding: 0.8rem;
+      margin-top: 1rem; /* Adjusted spacing */
 
       &:hover {
-        background-color: #0056b3;
+        background-color: #004494; /* Darker shade for hover */
       }
     }
   }
@@ -87,6 +78,28 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Reset failure message
+    setFailureMessage("");
+
+    // Validation: username length
+    if (username.length < 3) {
+      setFailureMessage("Username must be at least 3 characters long.");
+      return;
+    }
+
+    // Validation: must contain a number
+    if (!/\d/.test(username)) {
+      setFailureMessage("Username must contain a number.");
+      return;
+    }
+
+    // Validation: must contain a capital letter
+    if (!/[A-Z]/.test(username)) {
+      setFailureMessage("Username must contain a capital letter.");
+      return;
+    }
+
     const loginMessage = login(username, password);
 
     if (loginMessage === "success") {
@@ -101,11 +114,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <form onSubmit={handleSubmit}>
           <p>
-            Username: <span>UserName</span>
+            Username: <span>UserName2</span>
           </p>
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Username2"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             autoFocus
@@ -121,7 +134,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          {failureMessage && <h4>Failure Message</h4>}
+          {failureMessage && <h4>{failureMessage}</h4>}
 
           <button type="submit">Login</button>
         </form>
