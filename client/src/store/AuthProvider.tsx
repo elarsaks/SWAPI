@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 
 import AuthContext from "./AuthContext";
 
@@ -7,9 +7,30 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null>(null);
-  const [username, setUsername] = useState<string | null>(null);
+  // Initialize state from localStorage or set defaults
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    localStorage.getItem("isAuthenticated") === "true"
+  );
+
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem("token")
+  );
+
+  const [username, setUsername] = useState<string | null>(
+    localStorage.getItem("username")
+  );
+
+  useEffect(() => {
+    localStorage.setItem("isAuthenticated", isAuthenticated.toString());
+
+    token
+      ? localStorage.setItem("token", token)
+      : localStorage.removeItem("token");
+
+    username
+      ? localStorage.setItem("username", username)
+      : localStorage.removeItem("username");
+  }, [isAuthenticated, token, username]);
 
   const login = (usernameInput: string, passwordInput: string): string => {
     const DUMMY_USER_NAME = "UserName";
