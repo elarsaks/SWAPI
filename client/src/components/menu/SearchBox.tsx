@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import ContentContext from "../../store/ContentContext";
 import { IoSearchSharp } from "react-icons/io5";
+import SearchContext from "../../store/SearchContext";
 import styled from "styled-components";
 
 const SearchBoxContainer = styled.div`
@@ -32,7 +32,7 @@ const Input = styled.input`
 `;
 
 const SearchBox: React.FC = () => {
-  const { setSearchWord } = useContext(ContentContext);
+  const { setSearchWord } = useContext(SearchContext);
   const [inputValue, setInputValue] = useState("");
 
   // Debounce

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import Card from "./components/card/Card";
-import ContentContext from "./store/ContentContext";
 import Footer from "./components/Footer";
 import LoadingCube from "./components/LoadingCube";
 import Menu from "./components/menu/Menu";
 import NavBar from "./components/navbar/NavBar";
+import SearchContext from "./store/SearchContext";
 import Title from "./components/title/Title";
 import Util from "./components/Util";
 import styled from "styled-components";
@@ -101,12 +101,12 @@ function App() {
       });
   }, [page, searchWord]);
 
-  const ContentContextValue = {
+  const SearchContextValue = {
     setSearchWord,
   };
 
   return (
-    <ContentContext.Provider value={ContentContextValue}>
+    <SearchContext.Provider value={SearchContextValue}>
       <AppStyles className="App">
         <NavBar />
         <Title text={"STAR WARS"} />
@@ -125,7 +125,7 @@ function App() {
         </div>
         <Footer />
       </AppStyles>
-    </ContentContext.Provider>
+    </SearchContext.Provider>
   );
 }
 
