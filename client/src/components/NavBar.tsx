@@ -1,5 +1,9 @@
-import logoImage from "../../assets/logo-w.png";
+import React, { useState } from "react";
+
+import LoginModal from "./LoginModal";
+import logoImage from "../assets/logo-w.png";
 import styled from "styled-components";
+import { useAuth } from "../store/AuthContext";
 
 const NavBarStyles = styled.nav`
   display: flex;
@@ -44,34 +48,35 @@ const LoginButton = styled.button`
 `;
 
 const NavBar: React.FC = () => {
-  const isLoggedIn = false;
-  const userName = "User Name";
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
+
+  const handleLoginClick = () => {
+    setIsLoginModalOpen(true);
+  };
+
+  const handleLogoutClick = () => {
+    logout();
+  };
 
   return (
     <NavBarStyles>
       <LeftContainer>
         <Logo src={logoImage} alt="Logo" />
-        <h3>{isLoggedIn && <UserName>{userName}</UserName>}</h3>
+        <h3>
+          <UserName>{isAuthenticated ? "User Name" : "STAR WARS"}</UserName>
+        </h3>
       </LeftContainer>
       <div>
-        {isLoggedIn ? (
-          <LoginButton
-            onClick={() => {
-              /* logic to log out */
-            }}
-          >
-            Log Out
-          </LoginButton>
+        {isAuthenticated ? (
+          <LoginButton onClick={handleLogoutClick}>Log Out</LoginButton>
         ) : (
-          <LoginButton
-            onClick={() => {
-              /* logic to log in */
-            }}
-          >
-            Log In
-          </LoginButton>
+          <LoginButton onClick={handleLoginClick}>Log In</LoginButton>
         )}
       </div>
+      {isLoginModalOpen && (
+        <LoginModal onClose={() => setIsLoginModalOpen(false)} />
+      )}
     </NavBarStyles>
   );
 };

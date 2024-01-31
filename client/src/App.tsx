@@ -5,7 +5,7 @@ import Card from "./components/card/Card";
 import Footer from "./components/Footer";
 import LoadingCube from "./components/LoadingCube";
 import Menu from "./components/menu/Menu";
-import NavBar from "./components/navbar/NavBar";
+import NavBar from "./components/NavBar";
 import SearchContext from "./store/SearchContext";
 import Title from "./components/title/Title";
 import Util from "./components/Util";
