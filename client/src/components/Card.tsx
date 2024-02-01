@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import Util from "./util/Util";
+import Util from "./util/Feedback";
 import styled from "styled-components";
 
 const returnEasing = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
