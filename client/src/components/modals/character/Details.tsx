@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import NesteDetails from "components/modals/character/Details";
 import styled from "styled-components";
@@ -18,6 +18,41 @@ const DetailsContainer = styled.div<DetailsContainerProps>`
   border: 1px solid white;
 `;
 
+const ListContainer = styled.div`
+  background-color: #00000077;
+  color: black;
+  padding: 5px;
+  border: 1px white solid;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+
+  h3 {
+    margin: 2px;
+  }
+`;
+
+const OpenButton = styled.button`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  text-decoration: underline;
+  font-size: 1.2rem;
+  color: #ffffff;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 interface CharacterModalProps {
   url: string;
   isVisible: boolean;
@@ -35,7 +70,11 @@ const Details: React.FC<CharacterModalProps> = ({ url, isVisible }) => {
 
   useEffect(() => {
     if (true) {
-      //! <== Magical bug!
+      //! if(true) Is Magical bug!
+      // Removing If statement, stops data from loading.
+      // Setting it FALSE or TRUE, stops children from fetching data.
+      // Setting it to "isVisible" props created infinite loop earlier, now it just stops children from loading
+      // TODO: Come back to this
       const fetchData = async () => {
         setIsLoading(true);
         try {
@@ -61,9 +100,9 @@ const Details: React.FC<CharacterModalProps> = ({ url, isVisible }) => {
 
   return (
     <DetailsContainer $backgroundColor={backgroundColor}>
-      <button onClick={() => setIsOpen(!isOpen)}>
+      <OpenButton onClick={() => setIsOpen(!isOpen)}>
         {isLoading ? "Loading ..." : title}
-      </button>
+      </OpenButton>
 
       {isOpen && (
         <div>
@@ -71,8 +110,8 @@ const Details: React.FC<CharacterModalProps> = ({ url, isVisible }) => {
           {Object.keys(data || {}).map((key) => {
             const value = data[key];
             return Array.isArray(value) ? (
-              <div key={key}>
-                <b>{key}</b>:
+              <ListContainer key={key}>
+                <h3>{key}</h3>
                 {value.map((item, index) => {
                   const detailKey = `${key}-${index}`;
                   return (
@@ -81,7 +120,7 @@ const Details: React.FC<CharacterModalProps> = ({ url, isVisible }) => {
                     </div>
                   );
                 })}
-              </div>
+              </ListContainer>
             ) : (
               <div key={key}>
                 <b>{key}</b>: {value}

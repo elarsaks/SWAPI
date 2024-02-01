@@ -13,7 +13,7 @@ export const ModalContent = styled.div`
   z-index: 2000;
   overflow-x: hidden;
   overflow-y: scroll;
-  max-width: 500px;
+  max-width: 700px;
   max-height: 90vh;
   min-width: 320px;
 `;
