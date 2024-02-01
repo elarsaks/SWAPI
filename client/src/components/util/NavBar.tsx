@@ -75,7 +75,7 @@ const NavBar: React.FC = () => {
         )}
       </div>
       {isLoginModalOpen && (
-        <LoginModal onClose={() => setIsLoginModalOpen(false)} />
+        <LoginModal message="" onClose={() => setIsLoginModalOpen(false)} />
       )}
     </NavBarStyles>
   );

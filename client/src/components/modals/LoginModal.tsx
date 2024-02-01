@@ -1,8 +1,20 @@
 import React, { useState } from "react";
 
-import { ModalBackground } from "./ModalBackground";
 import styled from "styled-components";
 import { useAuth } from "../../store/AuthContext";
+
+export const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
 
 export const ModalContent = styled.div`
   background-color: #2a7496;
@@ -58,9 +70,10 @@ const LoginForm = styled.div`
 
 interface LoginModalProps {
   onClose: () => void;
+  message: string;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
+const LoginModal: React.FC<LoginModalProps> = ({ onClose, message }) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [failureMessage, setFailureMessage] = useState<string>("");
@@ -103,6 +116,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
     <ModalBackground onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <LoginForm>
+          {message && <h3>{message}</h3>}
           <form onSubmit={handleSubmit}>
             <p>
               Username: <span>UserName2</span>

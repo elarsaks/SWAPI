@@ -1,8 +1,21 @@
 import CharacterImage from "components/CharacterImage";
 import Details from "./Details";
-import { ModalBackground } from "../ModalBackground";
 import React from "react";
 import styled from "styled-components";
+import { useAuth } from "store/AuthContext";
+
+export const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
 
 export const ModalContent = styled.div`
   position: absolute;
@@ -66,6 +79,12 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
   onClose,
   character,
 }) => {
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    // Optionally redirect to login or return null
+    return null;
+  }
   return (
     <ModalBackground onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>

@@ -10,10 +10,12 @@ import {
 import React, { useEffect, useState } from "react";
 
 import AuthProvider from "store/AuthProvider";
-import CharacterModal from "./components/modals/character/CharacterModal";
+import CharacterModal from "components/modals/character/CharacterModal";
+import LoginModal from "components/modals/LoginModal";
 import SearchContext from "store/SearchContext";
 import { getCharacters } from "api/characters";
 import styled from "styled-components";
+import { useAuth } from "store/AuthContext";
 
 const AppStyles = styled.div`
   display: flex;
@@ -64,14 +66,17 @@ const Content = styled.div<ContentProps>`
 `;
 
 function App() {
+  const [characters, setCharacters] = useState<Character[]>([]);
   const [error, setError] = useState<string>("");
   const [info, setInfo] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-  const [page, setPage] = useState<number>(1);
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [characterOpen, setCharacterOpen] = useState<Character | null>();
-  const [searchWord, setSearchWord] = useState<string>("");
   const [maxPage, setMaxPage] = useState(1);
+  const [page, setPage] = useState<number>(1);
+  const [searchWord, setSearchWord] = useState<string>("");
+  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  const { isAuthenticated, setPostLoginAction } = useAuth();
+  const [showCharacterModal, setShowCharacterModal] =
+    useState<Character | null>(null);
 
   // Set page to 1 every time searchWord changes
   useEffect(() => {
@@ -102,40 +107,61 @@ function App() {
     setSearchWord,
   };
 
-  return (
-    <AuthProvider>
-      <SearchContext.Provider value={SearchContextValue}>
-        <AppStyles className="App">
-          <NavBar />
-          <Title text={"STAR WARS"} />
-          <div>
-            <Menu setPage={setPage} page={page} minPage={1} maxPage={maxPage} />
-            <Content $isUtil={loading || error.length > 0 || info.length > 0}>
-              {loading && <LoadingCube height="400px" text="Loading ..." />}
-              {error && <Util type="error" message={error} />}
-              {info && <Util type="info" message={info} />}
-              {!loading &&
-                !error &&
-                characters.map((character: Character) => (
-                  <Card
-                    key={character.url}
-                    name={character.name}
-                    openCharacter={() => setCharacterOpen(character)}
-                  />
-                ))}
-            </Content>
+  useEffect(() => {
+    if (!isAuthenticated && showCharacterModal) {
+      setShowLoginModal(true);
+    } else {
+      setShowLoginModal(false);
+    }
+  }, [isAuthenticated, showCharacterModal]);
 
-            {characterOpen && (
-              <CharacterModal
-                character={characterOpen}
-                onClose={() => setCharacterOpen(null)}
+  const handleCharacterClick = (character: Character) => {
+    if (isAuthenticated) {
+      setShowCharacterModal(character);
+    } else {
+      setPostLoginAction(() => () => {
+        setShowCharacterModal(character);
+        setShowLoginModal(false);
+      });
+      setShowLoginModal(true);
+    }
+  };
+
+  return (
+    <SearchContext.Provider value={{ setSearchWord }}>
+      <AppStyles>
+        <NavBar />
+        <Title text="STAR WARS" />
+        <Menu minPage={1} setPage={setPage} page={page} maxPage={maxPage} />
+        <Content $isUtil={loading || !!error || !!info}>
+          {loading ? <LoadingCube height="400px" text="Loading ..." /> : null}
+          {error ? <Util type="error" message={error} /> : null}
+          {info ? <Util type="info" message={info} /> : null}
+          {!loading &&
+            !error &&
+            characters.map((character) => (
+              <Card
+                key={character.url}
+                name={character.name}
+                openCharacter={() => handleCharacterClick(character)}
               />
-            )}
-          </div>
-          <Footer />
-        </AppStyles>
-      </SearchContext.Provider>
-    </AuthProvider>
+            ))}
+        </Content>
+        {showCharacterModal && (
+          <CharacterModal
+            character={showCharacterModal}
+            onClose={() => setShowCharacterModal(null)}
+          />
+        )}
+        {showLoginModal && (
+          <LoginModal
+            message="You must login to continue!"
+            onClose={() => setShowLoginModal(false)}
+          />
+        )}
+        <Footer />
+      </AppStyles>
+    </SearchContext.Provider>
   );
 }
 

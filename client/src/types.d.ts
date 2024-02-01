@@ -2,6 +2,7 @@ type AuthContextType = {
     isAuthenticated: boolean;
     login: (username: string, password: string) => string;
     logout: () => void;
+    setPostLoginAction: (action: () => void) => void;
     token: string | null;
     username: string | null;
 }

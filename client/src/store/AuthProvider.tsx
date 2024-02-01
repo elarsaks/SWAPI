@@ -20,6 +20,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.getItem("username")
   );
 
+  const [postLoginAction, setPostLoginAction] = useState<() => void | null>();
+
   useEffect(() => {
     localStorage.setItem("isAuthenticated", isAuthenticated.toString());
 
@@ -40,6 +42,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsAuthenticated(true);
       setToken("mock-jwt-token"); // In a real application, this would come from your authentication server
       setUsername(usernameInput);
+
+      // Action to be called after successful login
+      if (postLoginAction) postLoginAction();
       return "success";
     } else {
       return "Invalid username or password";
@@ -52,7 +57,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUsername(null);
   };
 
-  const value = { isAuthenticated, login, logout, token, username };
+  const value = {
+    isAuthenticated,
+    login,
+    logout,
+    token,
+    username,
+    setPostLoginAction,
+  };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
