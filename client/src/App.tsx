@@ -1,14 +1,16 @@
+import {
+  Card,
+  Footer,
+  LoadingCube,
+  Menu,
+  NavBar,
+  Title,
+  Util,
+} from "components";
 import React, { useEffect, useState } from "react";
 
-import AuthProvider from "./store/AuthProvider";
-import Card from "./components/Card";
-import Footer from "./components/util/Footer";
-import LoadingCube from "./components/util/LoadingCube";
-import Menu from "./components/menu/Menu";
-import NavBar from "./components/util/NavBar";
-import SearchContext from "./store/SearchContext";
-import Title from "./components/title/Title";
-import Util from "./components/util/Util";
+import AuthProvider from "store/AuthProvider";
+import SearchContext from "store/SearchContext";
 import styled from "styled-components";
 
 const AppStyles = styled.div`
