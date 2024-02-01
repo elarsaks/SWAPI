@@ -11,28 +11,37 @@ const DetailsContainer = styled.div`
 
 interface CharacterModalProps {
   url: string;
+  isVisible: boolean;
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Details: React.FC<CharacterModalProps> = ({ url }) => {
+const Details: React.FC<CharacterModalProps> = ({
+  url,
+  isVisible,
+  setTitle,
+}) => {
   const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(url);
-        const jsonData = await response.json();
-        setData(jsonData);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    if (isVisible) {
+      const fetchData = async () => {
+        setIsLoading(true);
+        try {
+          const response = await fetch(url);
+          const jsonData = await response.json();
+          setTitle(jsonData.title);
+          setData(jsonData);
+        } catch (error) {
+          console.error("Failed to fetch data:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
 
-    fetchData();
-  }, [url]);
+      fetchData();
+    }
+  }, [url, isVisible]);
 
   return (
     <DetailsContainer>

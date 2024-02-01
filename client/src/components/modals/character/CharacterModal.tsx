@@ -50,7 +50,7 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
             <CharacterImage name={character.name} />
           </CharacterImageContainer>
 
-          <Details url={character.url} />
+          <Details url={character.url} isVisible={true} setTitle={() => {}} />
         </CharacterContainer>
       </ModalContent>
     </ModalBackground>
