@@ -1,6 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
+import LoadingCube from "./util/LoadingCube";
 import Util from "./util/Feedback";
+import { getCharacterImage } from "api/characters";
 import styled from "styled-components";
 
 const returnEasing = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
@@ -47,18 +49,14 @@ const Overlay = styled.div`
   }
 `;
 
-interface InnerBorderProps {
-  $error: boolean;
-}
-
-const InnerBorder = styled.div<InnerBorderProps>`
+const InnerBorder = styled.div`
   position: absolute;
   z-index: 1;
   height: 90%;
   width: 90%;
   margin: 5%;
   border-radius: 5px;
-  opacity: ${(props) => (props.$error ? 1 : 0)};
+  opacity: 1;
   transition: opacity 0.5s ${returnEasing};
 
   ${Card}:hover & {
@@ -106,11 +104,20 @@ const CardComponent: React.FC<CardProps> = ({ name, openCharacter }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-  const [imageError, setImageError] = useState(false); // State to track image error
+  const [image, setImage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [imageError, setImageError] = useState("");
 
-  const handleImageError = () => {
-    setImageError(true); // Set the error state to true
-  };
+  useEffect(() => {
+    setIsLoading(true);
+    getCharacterImage(name)
+      .then((imgUrl) => {
+        setImage(imgUrl);
+        setImageError("");
+      })
+      .catch((error) => setImageError(error.message))
+      .finally(() => setIsLoading(false));
+  }, [name]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
@@ -137,10 +144,6 @@ const CardComponent: React.FC<CardProps> = ({ name, openCharacter }) => {
     }
   };
 
-  const imageName = `https://starwars-images-api.s3.eu-north-1.amazonaws.com/${encodeURIComponent(
-    name.toString()
-  ).replace(/%20/g, "+")}.jpg`;
-
   return (
     <CardWrap
       x={x}
@@ -152,27 +155,15 @@ const CardComponent: React.FC<CardProps> = ({ name, openCharacter }) => {
       onClick={openCharacter}
     >
       <Card>
+        {isLoading && <LoadingCube height="200px" text="Loading image" />}
         <Overlay />
+
         {imageError ? (
-          <InnerBorder $error>
-            <Util type="error" message="Failed to load image!" />
-            <Util
-              type="info"
-              message="Image was not in the dataset that I used."
-            />
-          </InnerBorder>
+          <Util type="error" message={imageError || "Failed to load image!"} />
         ) : (
           <>
-            <CardBg $image={imageName}>
-              {/* Invisible img tag to handle loading error */}
-              <img
-                src={imageName}
-                alt={name}
-                onError={handleImageError}
-                style={{ display: "none" }}
-              />
-            </CardBg>
-            <InnerBorder $error={false} />
+            <InnerBorder />
+            <CardBg $image={image} />
           </>
         )}
         <CardTitle>

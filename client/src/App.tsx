@@ -101,6 +101,7 @@ function App() {
   const SearchContextValue = {
     setSearchWord,
   };
+
   return (
     <AuthProvider>
       <SearchContext.Provider value={SearchContextValue}>
