@@ -15,6 +15,7 @@ export const ModalContent = styled.div<ModalContentProps>`
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 2000;
+  overflow: hidden;
 `;
 
 const CharacterContainer = styled.div`
@@ -30,30 +31,11 @@ interface CharacterImageContainerProps {
 
 const CharacterImageContainer = styled.div<CharacterImageContainerProps>`
   display: flex;
-  width: 100%;
-  height: 250px;
+  width: 99%;
+  height: 400px;
   overflow: hidden;
   border-radius: 10px 10px 0 0;
   border: 1px solid ${(props) => props.$borderColor};
-`;
-
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 20px;
-`;
-
-const Detail = styled.div`
-  margin-bottom: 8px;
-`;
-
-const List = styled.ul`
-  list-style: none;
-  padding: 0;
-`;
-
-const ListItem = styled.li`
-  /* Styling for list items */
 `;
 
 const renderObjectDetails = (obj: any): JSX.Element => {
@@ -79,23 +61,17 @@ const renderObjectDetails = (obj: any): JSX.Element => {
             loopObject(item, `${newPrefix}[${index}]`); // Recurse, but directly manipulate elements
             return subElements; // This won't work as expected since subElements is local and empty; need to adjust logic
           } else {
-            return (
-              <ListItem key={`${newPrefix}-${index}`}>
-                {item.toString()}
-              </ListItem>
-            );
+            return <div key={`${newPrefix}-${index}`}>{item.toString()}</div>;
           }
         });
 
         elements.push(
-          <Detail key={newPrefix}>{newPrefix}:</Detail>,
-          <List key={`${newPrefix}-list`}>{listItems}</List>
+          <div key={newPrefix}>{newPrefix}:</div>,
+          <div key={`${newPrefix}-list`}>{listItems}</div>
         );
       } else {
         // Direct value, push directly to elements
-        elements.push(
-          <Detail key={newPrefix}>{`${newPrefix}: ${value}`}</Detail>
-        );
+        elements.push(<div key={newPrefix}>{`${newPrefix}: ${value}`}</div>);
       }
     });
   };
@@ -117,7 +93,7 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
 
   const borderColor = character["hair_color"]
     ? character["hair_color"]
-    : "white";
+    : "#fff";
 
   const backgroundColor = character["skin_color"]
     ? Array.isArray(character["skin_color"])
@@ -140,7 +116,7 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
           <CharacterImageContainer $borderColor={imageBorderColor}>
             <CharacterImage name={character.name} />
           </CharacterImageContainer>
-          <Info>{renderObjectDetails(character)}</Info>
+          {renderObjectDetails(character)}
         </CharacterContainer>
       </ModalContent>
     </ModalBackground>
