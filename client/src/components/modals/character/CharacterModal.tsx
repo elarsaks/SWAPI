@@ -46,7 +46,6 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
             <CharacterImage name={character.name} />
           </CharacterImageContainer>
 
-          {/* <DetailsContainer>{renderObjectDetails(character)}</DetailsContainer> */}
           <Details url={character.url} />
         </CharacterContainer>
       </ModalContent>

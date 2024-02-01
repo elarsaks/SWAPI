@@ -1,3 +1,4 @@
+import Details from "./Details";
 import React from "react";
 import styled from "styled-components";
 
@@ -8,7 +9,11 @@ interface CharacterModalProps {
 }
 
 const CharacterModal: React.FC<CharacterModalProps> = ({ url }) => {
-  return <LinkStyle></LinkStyle>;
+  return (
+    <LinkStyle>
+      <Details url={"url"} />
+    </LinkStyle>
+  );
 };
 
 export default CharacterModal;

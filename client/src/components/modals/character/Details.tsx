@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import LoadingCube from "components/util/LoadingCube"; // Assuming this is a valid import
+import Link from "./Link"; // Assuming this is a valid import
+import LoadingCube from "components/util/LoadingCube";
 import styled from "styled-components";
 
 const DetailsContainer = styled.div`
@@ -17,7 +18,6 @@ const Details: React.FC<CharacterModalProps> = ({ url }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch data asynchronously and update component state
     const fetchData = async () => {
       setIsLoading(true);
       try {
@@ -32,43 +32,33 @@ const Details: React.FC<CharacterModalProps> = ({ url }) => {
     };
 
     fetchData();
-  }, [url]); // Re-fetch data if url changes
-
-  const renderObjectDetails = (obj: any): JSX.Element => {
-    const elements: JSX.Element[] = [];
-
-    Object.keys(obj).forEach((key) => {
-      const value = obj[key];
-
-      if (Array.isArray(value)) {
-        const listItems = value.map((item, index) => (
-          <div key={`${key}-${index}`}>{item.toString()}</div>
-        ));
-
-        elements.push(
-          <div key={key}>
-            <b>{key}</b>:
-          </div>,
-          <div key={`${key}-list`}>{listItems}</div>
-        );
-      } else {
-        elements.push(
-          <div key={key}>
-            <b>{key} </b>: {value.toString()}
-          </div>
-        );
-      }
-    });
-
-    return <>{elements}</>;
-  };
+  }, [url]);
 
   return (
     <DetailsContainer>
       {isLoading ? (
         <LoadingCube text="Loading..." height="50px" />
       ) : (
-        renderObjectDetails(data)
+        <>
+          {Object.keys(data || {}).map((key) => {
+            const value = data[key];
+
+            return Array.isArray(value) ? (
+              <div key={key}>
+                <b>{key}</b>:
+                <div key={`${key}-list`}>
+                  {value.map((item, index) => (
+                    <Link key={`${key}-${index}`} url={item} />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div key={key}>
+                <b>{key} </b>: {value.toString()}
+              </div>
+            );
+          })}
+        </>
       )}
     </DetailsContainer>
   );
