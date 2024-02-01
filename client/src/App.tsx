@@ -10,6 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 
 import AuthProvider from "store/AuthProvider";
+import CharacterModal from "./components/modals/CharacterModal";
 import SearchContext from "store/SearchContext";
 import { getCharacters } from "api/characters";
 import styled from "styled-components";
@@ -67,7 +68,8 @@ function App() {
   const [info, setInfo] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
-  const [Character, setCharacter] = useState<Person[]>([]);
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [characterOpen, setCharacterOpen] = useState<Character | null>();
   const [searchWord, setSearchWord] = useState<string>("");
   const [maxPage, setMaxPage] = useState(1);
 
@@ -85,7 +87,7 @@ function App() {
     getCharacters(searchWord, page)
       .then((data) => {
         setMaxPage(Math.ceil(data.count / 10));
-        setCharacter(data.results);
+        setCharacters(data.results);
         data.results.length === 0 ? setInfo("Nothing found!") : setInfo("");
         setLoading(false);
         setError("");
@@ -114,10 +116,14 @@ function App() {
               {info && <Util type="info" message={info} />}
               {!loading &&
                 !error &&
-                Character.map((person: Person) => (
-                  <Card key={person.url} name={person.name} />
+                characters.map((character: Character) => (
+                  <Card key={character.url} name={character.name} />
                 ))}
             </Content>
+
+            {characterOpen && (
+              <CharacterModal onClose={() => setCharacterOpen(null)} />
+            )}
           </div>
           <Footer />
         </AppStyles>
