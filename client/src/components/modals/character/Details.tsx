@@ -5,8 +5,8 @@ import LoadingCube from "components/util/LoadingCube";
 import styled from "styled-components";
 
 const DetailsContainer = styled.div`
-  background-color: #f0f0f0;
   padding: 5px;
+  max-width: 500px;
 `;
 
 interface CharacterModalProps {
