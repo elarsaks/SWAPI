@@ -70,7 +70,7 @@ const Details: React.FC<CharacterModalProps> = ({ url, isVisible }) => {
 
   useEffect(() => {
     if (true) {
-      //! if(true) Is Magical bug!
+      //! if(true) Is a Magical bug!
       // Removing If statement, stops data from loading.
       // Setting it FALSE or TRUE, stops children from fetching data.
       // Setting it to "isVisible" props created infinite loop earlier, now it just stops children from loading

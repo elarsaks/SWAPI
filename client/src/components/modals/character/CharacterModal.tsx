@@ -16,6 +16,29 @@ export const ModalContent = styled.div`
   max-width: 700px;
   max-height: 90vh;
   min-width: 320px;
+
+  /* Custom scrollbar styles */
+  &::-webkit-scrollbar {
+    width: 12px; /* Scrollbar width */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Track background color */
+    border-radius: 10px; /* Match ModalContent border-radius */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888; /* Thumb color */
+    border-radius: 10px; /* Rounded corners for the thumb */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color when hovering over the thumb */
+  }
+
+  /* For Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1; /* Thumb and track color */
 `;
 
 const CharacterContainer = styled.div`
