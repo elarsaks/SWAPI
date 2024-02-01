@@ -1,8 +1,15 @@
-import { ModalBackground, ModalContent } from "./Modal";
-
 import CharacterImage from "components/CharacterImage";
+import { ModalBackground } from "./ModalBackground";
 import React from "react";
 import styled from "styled-components";
+
+export const ModalContent = styled.div`
+  background-color: #2a7496;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 2000;
+`;
 
 const CharacterContainer = styled.div`
   display: flex;
@@ -61,6 +68,7 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
           </CharacterImageContainer>
 
           <Info>
+            <Detail>Name: {character.name}</Detail>
             <Detail>Birth Year: {character.birth_year}</Detail>
             <Detail>Eye Color: {character.eye_color}</Detail>
             <Detail>Gender: {character.gender}</Detail>
