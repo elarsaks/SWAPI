@@ -6,7 +6,7 @@ type AuthContextType = {
     username: string | null;
 }
 
-type Person = {
+type Character = {
     name: string;
     birth_year: string;
     created: string;
@@ -25,8 +25,11 @@ type Person = {
     url: string;
 };
 
-type PeopleResponse = {
-    results: Person[];
+type CharacterResponse = {
+    count: number;
+    next: string;
+    previous: string;
+    results: Character[];
 };
 
 

@@ -33,7 +33,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [isAuthenticated, token, username]);
 
   const login = (usernameInput: string, passwordInput: string): string => {
-    const DUMMY_USER_NAME = "UserName";
+    const DUMMY_USER_NAME = "UserName2";
     const DUMMY_PASSWORD = "StrongPassword2";
 
     if (usernameInput === DUMMY_USER_NAME && passwordInput === DUMMY_PASSWORD) {

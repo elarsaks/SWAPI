@@ -1,14 +1,18 @@
+import {
+  Card,
+  Footer,
+  LoadingCube,
+  Menu,
+  NavBar,
+  Title,
+  Util,
+} from "components";
 import React, { useEffect, useState } from "react";
 
-import AuthProvider from "./store/AuthProvider";
-import Card from "./components/card/Card";
-import Footer from "./components/Footer";
-import LoadingCube from "./components/LoadingCube";
-import Menu from "./components/menu/Menu";
-import NavBar from "./components/NavBar";
-import SearchContext from "./store/SearchContext";
-import Title from "./components/title/Title";
-import Util from "./components/Util";
+import AuthProvider from "store/AuthProvider";
+import CharacterModal from "./components/modals/CharacterModal";
+import SearchContext from "store/SearchContext";
+import { getCharacters } from "api/characters";
 import styled from "styled-components";
 
 const AppStyles = styled.div`
@@ -64,7 +68,8 @@ function App() {
   const [info, setInfo] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
-  const [people, setPeople] = useState<Person[]>([]);
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [characterOpen, setCharacterOpen] = useState<Character | null>();
   const [searchWord, setSearchWord] = useState<string>("");
   const [maxPage, setMaxPage] = useState(1);
 
@@ -79,22 +84,13 @@ function App() {
     setInfo("");
     setError("");
 
-    fetch(`https://swapi.dev/api/people/?search=${searchWord}&page=${page}`)
-      .then((response) => {
-        if (!response.ok) {
-          setError(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
+    getCharacters(searchWord, page)
       .then((data) => {
-        const calculatedMaxPage = Math.ceil(data.count / 10);
-        setMaxPage(calculatedMaxPage);
-        setPeople(data.results);
-        setLoading(false);
-
+        setMaxPage(Math.ceil(data.count / 10));
+        setCharacters(data.results);
         data.results.length === 0 ? setInfo("Nothing found!") : setInfo("");
-        setError("");
         setLoading(false);
+        setError("");
       })
       .catch((error: Error) => {
         setError(error.message);
@@ -120,10 +116,21 @@ function App() {
               {info && <Util type="info" message={info} />}
               {!loading &&
                 !error &&
-                people.map((person: Person) => (
-                  <Card key={person.url} name={person.name} />
+                characters.map((character: Character) => (
+                  <Card
+                    key={character.url}
+                    name={character.name}
+                    openCharacter={() => setCharacterOpen(character)}
+                  />
                 ))}
             </Content>
+
+            {characterOpen && (
+              <CharacterModal
+                character={characterOpen}
+                onClose={() => setCharacterOpen(null)}
+              />
+            )}
           </div>
           <Footer />
         </AppStyles>

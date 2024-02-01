@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import LoginModal from "./LoginModal";
-import logoImage from "../assets/logo-w.png";
+import LoginModal from "components/modals/LoginModal";
+import logoImage from "assets/logo-w.png";
 import styled from "styled-components";
-import { useAuth } from "../store/AuthContext";
+import { useAuth } from "store/AuthContext";
 
 const NavBarStyles = styled.nav`
   display: flex;

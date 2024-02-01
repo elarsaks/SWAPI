@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { IoSearchSharp } from "react-icons/io5";
-import SearchContext from "../../store/SearchContext";
+import SearchContext from "store/SearchContext";
 import styled from "styled-components";
 
 const SearchBoxContainer = styled.div`
@@ -48,7 +48,7 @@ const SearchBox: React.FC = () => {
     <SearchBoxContainer>
       <Input
         type="text"
-        placeholder="Search People..."
+        placeholder="Search Character..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       />

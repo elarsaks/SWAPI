@@ -4,11 +4,11 @@ import { MdError } from "react-icons/md";
 import React from "react";
 import styled from "styled-components";
 
-interface UtilStyleProps {
+interface FeedBackStyleProps {
   $type: "error" | "info" | "warning";
 }
 
-const UtilStyles = styled.div<UtilStyleProps>`
+const FeedBackStyles = styled.div<FeedBackStyleProps>`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -48,12 +48,12 @@ const UtilStyles = styled.div<UtilStyleProps>`
   }
 `;
 
-interface UtilProps {
+interface FeedBackProps {
   message: string;
   type: "error" | "info" | "warning";
 }
 
-const Error: React.FC<UtilProps> = ({ message, type }) => {
+const Error: React.FC<FeedBackProps> = ({ message, type }) => {
   const getIcon = () => {
     switch (type) {
       case "error":
@@ -68,12 +68,12 @@ const Error: React.FC<UtilProps> = ({ message, type }) => {
   };
 
   return (
-    <UtilStyles $type={type}>
+    <FeedBackStyles $type={type}>
       {getIcon()}
       <span>
         {type.toUpperCase()}: {message}
       </span>
-    </UtilStyles>
+    </FeedBackStyles>
   );
 };
 
