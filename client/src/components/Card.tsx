@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import CharacterImage from "components/CharacterImage";
 import styled from "styled-components";
