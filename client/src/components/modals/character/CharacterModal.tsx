@@ -28,7 +28,7 @@ const CharacterContainer = styled.div`
 const CharacterImageContainer = styled.div`
   display: flex;
   width: 100%;
-  height: 400px;
+  height: 450px;
   overflow: hidden;
   border-radius: 10px 10px 0 0;
   border: 1px solid #ffffff;

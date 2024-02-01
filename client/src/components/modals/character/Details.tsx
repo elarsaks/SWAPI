@@ -20,17 +20,12 @@ const DetailsContainer = styled.div<DetailsContainerProps>`
 interface CharacterModalProps {
   url: string;
   isVisible: boolean;
-  // setTitle: React.Dispatch<React.SetStateAction<string>>;
 }
-const Details: React.FC<CharacterModalProps> = ({
-  url,
-  isVisible,
-  // setTitle,
-}) => {
+const Details: React.FC<CharacterModalProps> = ({ url, isVisible }) => {
   const [backgroundColor, setBackgroundColor] = useState("white");
   const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(isVisible);
   const [title, setTitle] = useState("");
 
   useEffect(() => {
@@ -38,7 +33,7 @@ const Details: React.FC<CharacterModalProps> = ({
   }, []);
 
   useEffect(() => {
-    if (isVisible) {
+    if (true) {
       const fetchData = async () => {
         setIsLoading(true);
         try {
@@ -62,7 +57,9 @@ const Details: React.FC<CharacterModalProps> = ({
 
   return (
     <DetailsContainer $backgroundColor={backgroundColor}>
-      <button onClick={() => setIsOpen(!isOpen)}>{title}</button>
+      <button onClick={() => setIsOpen(!isOpen)}>
+        {isLoading ? "Loading ..." : title}
+      </button>
 
       {isOpen && (
         <div>
@@ -76,7 +73,7 @@ const Details: React.FC<CharacterModalProps> = ({
                   const detailKey = `${key}-${index}`;
                   return (
                     <div key={detailKey}>
-                      <NesteDetails url={item} isVisible={true} />
+                      <NesteDetails url={item} isVisible={false} />
                     </div>
                   );
                 })}
