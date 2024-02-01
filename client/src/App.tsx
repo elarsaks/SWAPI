@@ -9,7 +9,6 @@ import {
 } from "components";
 import React, { useEffect, useState } from "react";
 
-import AuthProvider from "store/AuthProvider";
 import CharacterModal from "components/modals/character/CharacterModal";
 import LoginModal from "components/modals/LoginModal";
 import SearchContext from "store/SearchContext";
@@ -102,10 +101,6 @@ function App() {
         setLoading(false);
       });
   }, [page, searchWord]);
-
-  const SearchContextValue = {
-    setSearchWord,
-  };
 
   useEffect(() => {
     if (!isAuthenticated && showCharacterModal) {
