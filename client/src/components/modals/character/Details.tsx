@@ -34,6 +34,7 @@ const Details: React.FC<CharacterModalProps> = ({ url, isVisible }) => {
 
   useEffect(() => {
     if (true) {
+      //! Magical bug! It works like this, but not whitout it.
       const fetchData = async () => {
         setIsLoading(true);
         try {
