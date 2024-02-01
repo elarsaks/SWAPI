@@ -67,7 +67,7 @@ function App() {
   const [info, setInfo] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
-  const [people, setPeople] = useState<Person[]>([]);
+  const [Character, setCharacter] = useState<Person[]>([]);
   const [searchWord, setSearchWord] = useState<string>("");
   const [maxPage, setMaxPage] = useState(1);
 
@@ -85,7 +85,7 @@ function App() {
     getCharacters(searchWord, page)
       .then((data) => {
         setMaxPage(Math.ceil(data.count / 10));
-        setPeople(data.results);
+        setCharacter(data.results);
         data.results.length === 0 ? setInfo("Nothing found!") : setInfo("");
         setLoading(false);
         setError("");
@@ -114,7 +114,7 @@ function App() {
               {info && <Util type="info" message={info} />}
               {!loading &&
                 !error &&
-                people.map((person: Person) => (
+                Character.map((person: Person) => (
                   <Card key={person.url} name={person.name} />
                 ))}
             </Content>

@@ -1,4 +1,4 @@
-export function getCharacters(searchWord: string, page: number): Promise<PeopleResponse> {
+export function getCharacters(searchWord: string, page: number): Promise<CharacterResponse> {
     return fetch(`https://swapi.dev/api/people/?search=${searchWord}&page=${page}`)
         .then((response) => {
             if (!response.ok) {
@@ -6,5 +6,5 @@ export function getCharacters(searchWord: string, page: number): Promise<PeopleR
             }
             return response.json();
         })
-        .then((data) => data as PeopleResponse);
+        .then((data) => data as CharacterResponse);
 }

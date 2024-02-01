@@ -25,7 +25,7 @@ type Person = {
     url: string;
 };
 
-type PeopleResponse = {
+type CharacterResponse = {
     count: number;
     next: string;
     previous: string;

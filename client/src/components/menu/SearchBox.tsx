@@ -48,7 +48,7 @@ const SearchBox: React.FC = () => {
     <SearchBoxContainer>
       <Input
         type="text"
-        placeholder="Search People..."
+        placeholder="Search Character..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       />
