@@ -1,30 +1,20 @@
 import React, { useEffect, useState } from "react";
 
 import Feedback from "./util/Feedback";
-import LoadingCube from "./util/LoadingCube";
-import { getCharacterImage } from "api/characters"; // Ensure this path is correct
 import styled from "styled-components";
 
-const returnEasing = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
-
-const ImageContainer = styled.div`
+const ImageContainer = styled.div<{ $image?: string }>`
   background-color: #0000006d;
   width: 100%;
-`;
-
-const Image = styled.div<{ $image: string }>`
-  opacity: 1;
-  width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-image: url(${(props) => props.$image});
-  transition: 1s ${returnEasing}, opacity 5s 1s ${returnEasing};
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: opacity 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 `;
 
 interface CharacterImageProps {
@@ -32,32 +22,33 @@ interface CharacterImageProps {
 }
 
 const CharacterImage: React.FC<CharacterImageProps> = ({ name }) => {
-  const [image, setImage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [imageError, setImageError] = useState("");
+  const [imageError, setImageError] = useState<string | null>(null);
+  const [image, setImage] = useState<string>("");
+
+  const imageUrl = `https://starwars-images-api.s3.eu-north-1.amazonaws.com/${encodeURIComponent(
+    name
+  ).replace(/%20/g, "+")}.jpg`;
 
   useEffect(() => {
-    setIsLoading(true);
-    getCharacterImage(name)
-      .then((imgUrl) => {
-        setImage(imgUrl);
-        setImageError("");
-      })
-      .catch((error) => setImageError(error.message))
-      .finally(() => setIsLoading(false));
-  }, [name]);
+    const img = new Image();
+    img.src = imageUrl;
+    img.onload = () => {
+      setImage(imageUrl);
+      setImageError(null);
+    };
+    img.onerror = () => {
+      setImageError("Failed to load image!");
+    };
+
+    return () => {
+      img.onload = null;
+      img.onerror = null;
+    };
+  }, [name, imageUrl]);
 
   return (
-    <ImageContainer>
-      {isLoading && <LoadingCube text="Loading Image" height="200px" />}
-      {imageError ? (
-        <Feedback
-          type="error"
-          message={imageError || "Failed to load image!"}
-        />
-      ) : (
-        <Image $image={image} />
-      )}
+    <ImageContainer $image={imageError ? undefined : image}>
+      {imageError && <Feedback type="error" message={imageError} />}
     </ImageContainer>
   );
 };

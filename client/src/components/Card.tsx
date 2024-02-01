@@ -3,14 +3,11 @@ import React, { useEffect, useRef, useState } from "react";
 import CharacterImage from "components/CharacterImage";
 import styled from "styled-components";
 
-const returnEasing = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
-
 const CardWrap = styled.div<{ x: number; y: number }>`
   margin: 10px;
   transform: perspective(800px) rotateY(${(props) => props.x}deg)
     rotateX(${(props) => props.y}deg);
   transform-style: preserve-3d;
-  transition: transform 0.5s ${returnEasing};
   cursor: pointer;
 `;
 
@@ -23,7 +20,6 @@ const Card = styled.div`
   overflow: hidden;
   box-shadow: 0px 0px 10px 5px #051012b8;
   border-radius: 10px;
-  transition: box-shadow 0.5s ${returnEasing};
   border: 1px solid #ffffff;
 
   &:hover {
@@ -40,7 +36,6 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.2);
-  transition: opacity 0.5s ${returnEasing};
   opacity: 1;
   ${Card}:hover & {
     opacity: 0;
@@ -90,7 +85,6 @@ const CardComponent: React.FC<CardProps> = ({ name, openCharacter }) => {
 
   const handleMouseLeave = () => {
     if (cardRef.current) {
-      cardRef.current.style.transition = `transform 0.5s ${returnEasing}`;
       setX(0);
       setY(0);
     }
