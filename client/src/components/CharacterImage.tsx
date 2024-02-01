@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
+import Feedback from "./util/Feedback";
 import LoadingCube from "./util/LoadingCube";
-import Util from "./util/Feedback";
 import { getCharacterImage } from "api/characters";
 import styled from "styled-components";
 
@@ -9,7 +9,6 @@ const returnEasing = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
 
 const Image = styled.div<{ $image: string }>`
   opacity: 1;
-  position: absolute;
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
@@ -44,8 +43,16 @@ const CharacterImage: React.FC<CharacterImageProps> = ({ name }) => {
   }, [name]);
   return (
     <>
+      {isLoading && <LoadingCube text="Loading Image" height="200px" />}
       {imageError ? (
-        <Util type="error" message={imageError || "Failed to load image!"} />
+        <>
+          <Feedback
+            type="error"
+            message={imageError || "Failed to load image!"}
+          />
+
+          <LoadingCube text="" height="200px" />
+        </>
       ) : (
         <Image $image={image} />
       )}

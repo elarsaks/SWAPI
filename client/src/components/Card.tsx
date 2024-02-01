@@ -47,22 +47,6 @@ const Overlay = styled.div`
   }
 `;
 
-const InnerBorder = styled.div`
-  position: absolute;
-  z-index: 1;
-  height: 90%;
-  width: 90%;
-  margin: 5%;
-  border-radius: 5px;
-  opacity: 1;
-  transition: opacity 0.5s ${returnEasing};
-
-  ${Card}:hover & {
-    opacity: 1;
-    border: 1px solid #0bcee8b8;
-  }
-`;
-
 const CardTitle = styled.div`
   position: absolute;
   color: #fff;
@@ -124,7 +108,7 @@ const CardComponent: React.FC<CardProps> = ({ name, openCharacter }) => {
     >
       <Card>
         <Overlay />
-        <InnerBorder />
+
         <CharacterImage name={name} />
         <CardTitle>
           <h3>{name}</h3>

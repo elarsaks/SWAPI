@@ -6,8 +6,14 @@ import styled from "styled-components";
 
 const CharacterContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: start;
+`;
+
+const CharacterImageContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 250px;
 `;
 
 const Info = styled.div`
@@ -50,7 +56,10 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
     <ModalBackground onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <CharacterContainer>
-          <CharacterImage name={character.name} />
+          <CharacterImageContainer>
+            <CharacterImage name={character.name} />
+          </CharacterImageContainer>
+
           <Info>
             <Detail>Birth Year: {character.birth_year}</Detail>
             <Detail>Eye Color: {character.eye_color}</Detail>
