@@ -43,7 +43,6 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
   onClose,
   character,
 }) => {
-  console.log(character);
   return (
     <ModalBackground onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>

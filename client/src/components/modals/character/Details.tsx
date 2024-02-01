@@ -15,6 +15,7 @@ const DetailsContainer = styled.div<DetailsContainerProps>`
   background-color: ${(props) => props.$backgroundColor};
   padding: 5px;
   max-width: 500px;
+  border: 1px solid white;
 `;
 
 interface CharacterModalProps {
@@ -34,7 +35,7 @@ const Details: React.FC<CharacterModalProps> = ({ url, isVisible }) => {
 
   useEffect(() => {
     if (true) {
-      //! Magical bug! It works like this, but not whitout it.
+      //! <== Magical bug!
       const fetchData = async () => {
         setIsLoading(true);
         try {
@@ -42,7 +43,9 @@ const Details: React.FC<CharacterModalProps> = ({ url, isVisible }) => {
           const jsonData = await response.json();
           if (jsonData.title) setTitle(jsonData.title);
           if (jsonData.name) setTitle(jsonData.name);
-          console.log(jsonData.title);
+
+          //* Use This console log, to make sure that it is not in inifinite loop.
+          // console.log(jsonData.title);
 
           setData(jsonData);
         } catch (error) {
