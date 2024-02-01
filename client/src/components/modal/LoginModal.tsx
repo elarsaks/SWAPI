@@ -1,29 +1,10 @@
+import { ModalBackground, ModalContent } from "./Modal";
 import React, { useState } from "react";
 
 import styled from "styled-components";
-import { useAuth } from "../store/AuthContext";
+import { useAuth } from "../../store/AuthContext";
 
-const ModalBackground = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-`;
-
-const ModalContent = styled.div`
-  background-color: #2a7496; /* Softer shade */
-  border: 1px solid #ffffff;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 2000;
-
+const LoginForm = styled.div`
   form {
     display: flex;
     flex-direction: column;
@@ -37,30 +18,30 @@ const ModalContent = styled.div`
     input {
       font-size: 1rem;
       border-radius: 5px;
-      border: 2px solid #0056b3; /* Enhanced border */
+      border: 2px solid #0056b3;
       padding: 0.5rem;
-      margin-bottom: 1rem; /* Added spacing */
+      margin-bottom: 1rem;
 
       &:focus {
         outline: none;
-        border-color: #007bff; /* Focus color */
+        border-color: #007bff;
       }
     }
 
     h4 {
-      color: #ff6347; /* Tomato for error messages */
+      color: #ff6347;
       font-weight: bold;
       margin-top: 0.5rem;
     }
 
     button {
-      background-color: #0056b3; /* Consistent with focus color */
+      background-color: #0056b3;
       color: white;
       padding: 0.8rem;
-      margin-top: 1rem; /* Adjusted spacing */
+      margin-top: 1rem;
 
       &:hover {
-        background-color: #004494; /* Darker shade for hover */
+        background-color: #004494;
       }
     }
   }
@@ -112,32 +93,34 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   return (
     <ModalBackground onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        <form onSubmit={handleSubmit}>
-          <p>
-            Username: <span>UserName2</span>
-          </p>
-          <input
-            type="text"
-            placeholder="Username2"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            autoFocus
-          />
+        <LoginForm>
+          <form onSubmit={handleSubmit}>
+            <p>
+              Username: <span>UserName2</span>
+            </p>
+            <input
+              type="text"
+              placeholder="Username2"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              autoFocus
+            />
 
-          <p>
-            Password: <span>StrongPassword2 </span>
-          </p>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+            <p>
+              Password: <span>StrongPassword2 </span>
+            </p>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          {failureMessage && <h4>{failureMessage}</h4>}
+            {failureMessage && <h4>{failureMessage}</h4>}
 
-          <button type="submit">Login</button>
-        </form>
+            <button type="submit">Login</button>
+          </form>
+        </LoginForm>
       </ModalContent>
     </ModalBackground>
   );
