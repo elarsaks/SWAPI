@@ -33,5 +33,9 @@ type CharacterResponse = {
     results: Character[];
 };
 
-
+export {
+    AuthContextType,
+    Character,
+    CharacterResponse
+}
 
