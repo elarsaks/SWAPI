@@ -1,11 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Feedback from "./util/Feedback";
 import LoadingCube from "./util/LoadingCube";
-import { getCharacterImage } from "api/characters";
+import { getCharacterImage } from "api/characters"; // Ensure this path is correct
 import styled from "styled-components";
 
 const returnEasing = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
+
+const ImageContainer = styled.div`
+  background-color: #0000006d;
+  width: 100%;
+`;
 
 const Image = styled.div<{ $image: string }>`
   opacity: 1;
@@ -41,22 +46,19 @@ const CharacterImage: React.FC<CharacterImageProps> = ({ name }) => {
       .catch((error) => setImageError(error.message))
       .finally(() => setIsLoading(false));
   }, [name]);
+
   return (
-    <>
+    <ImageContainer>
       {isLoading && <LoadingCube text="Loading Image" height="200px" />}
       {imageError ? (
-        <>
-          <Feedback
-            type="error"
-            message={imageError || "Failed to load image!"}
-          />
-
-          <LoadingCube text="" height="200px" />
-        </>
+        <Feedback
+          type="error"
+          message={imageError || "Failed to load image!"}
+        />
       ) : (
         <Image $image={image} />
       )}
-    </>
+    </ImageContainer>
   );
 };
 

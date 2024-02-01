@@ -3,9 +3,15 @@ import { ModalBackground } from "./ModalBackground";
 import React from "react";
 import styled from "styled-components";
 
-export const ModalContent = styled.div`
-  background-color: #2a7496;
-  border: 1px solid #ffffff;
+interface ModalContentProps {
+  $backgroundColor: string;
+  $borderColor: string;
+}
+
+export const ModalContent = styled.div<ModalContentProps>`
+  background-color: ${(props) => props.$backgroundColor};
+  border: ${(props) => props.$borderColor};
+  border: 1px solid;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 2000;
@@ -15,12 +21,20 @@ const CharacterContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
+  background-color: #2a7496;
 `;
 
-const CharacterImageContainer = styled.div`
+interface CharacterImageContainerProps {
+  $borderColor: string;
+}
+
+const CharacterImageContainer = styled.div<CharacterImageContainerProps>`
   display: flex;
   width: 100%;
   height: 250px;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+  border: 1px solid ${(props) => props.$borderColor};
 `;
 
 const Info = styled.div`
@@ -99,13 +113,33 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
   onClose,
   character,
 }) => {
+  console.log(character);
+
+  const borderColor = character["hair_color"]
+    ? character["hair_color"]
+    : "white";
+
+  const backgroundColor = character["skin_color"]
+    ? Array.isArray(character["skin_color"])
+      ? character["skin_color"][0] // Use the first element if it's an array
+      : character["skin_color"] // Use it directly if it's not an array
+    : "#2a7496"; // Default color if non-existent
+
+  const imageBorderColor = character["eye_color"]
+    ? character["eye_color"]
+    : "white";
+
   return (
     <ModalBackground onClick={onClose}>
-      <ModalContent onClick={(e) => e.stopPropagation()}>
+      <ModalContent
+        $backgroundColor={backgroundColor}
+        $borderColor={borderColor}
+        onClick={(e) => e.stopPropagation()}
+      >
         <CharacterContainer>
-          {/* <CharacterImageContainer>
+          <CharacterImageContainer $borderColor={imageBorderColor}>
             <CharacterImage name={character.name} />
-          </CharacterImageContainer> */}
+          </CharacterImageContainer>
           <Info>{renderObjectDetails(character)}</Info>
         </CharacterContainer>
       </ModalContent>
