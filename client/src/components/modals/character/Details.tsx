@@ -58,33 +58,27 @@ const Details: React.FC<CharacterModalProps> = ({
 
   return (
     <DetailsContainer $backgroundColor={backgroundColor}>
-      {isLoading ? (
-        <h3>Loading ... </h3>
-      ) : (
-        <>
-          {Object.keys(data || {}).map((key) => {
-            const value = data[key];
+      {Object.keys(data || {}).map((key) => {
+        const value = data[key];
 
-            return Array.isArray(value) ? (
-              <div key={key}>
-                <b>{key}</b>:
-                {value.map((item, index) => (
-                  <NesteDetails
-                    key={`${key}-${index}`}
-                    url={item}
-                    isVisible={true}
-                    setTitle={() => {}}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div key={key}>
-                <b>{key} </b>: {value}
-              </div>
-            );
-          })}
-        </>
-      )}
+        return Array.isArray(value) ? (
+          <div key={key}>
+            <b>{key}</b>:
+            {value.map((item, index) => (
+              <NesteDetails
+                key={`${key}-${index}`}
+                url={item}
+                isVisible={true}
+                setTitle={() => {}}
+              />
+            ))}
+          </div>
+        ) : (
+          <div key={key}>
+            <b>{key} </b>: {value}
+          </div>
+        );
+      })}
     </DetailsContainer>
   );
 };

@@ -14,6 +14,7 @@ export const ModalContent = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
   max-width: 500px;
+  max-height: 90vh;
 `;
 
 const CharacterContainer = styled.div`
