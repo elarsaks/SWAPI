@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 
 import AuthProvider from "store/AuthProvider";
 import SearchContext from "store/SearchContext";
+import { getCharacters } from "api/characters";
 import styled from "styled-components";
 
 const AppStyles = styled.div`
@@ -81,22 +82,13 @@ function App() {
     setInfo("");
     setError("");
 
-    fetch(`https://swapi.dev/api/people/?search=${searchWord}&page=${page}`)
-      .then((response) => {
-        if (!response.ok) {
-          setError(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
+    getCharacters(searchWord, page)
       .then((data) => {
-        const calculatedMaxPage = Math.ceil(data.count / 10);
-        setMaxPage(calculatedMaxPage);
+        setMaxPage(Math.ceil(data.count / 10));
         setPeople(data.results);
-        setLoading(false);
-
         data.results.length === 0 ? setInfo("Nothing found!") : setInfo("");
-        setError("");
         setLoading(false);
+        setError("");
       })
       .catch((error: Error) => {
         setError(error.message);
