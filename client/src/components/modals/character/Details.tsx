@@ -54,7 +54,7 @@ const Details: React.FC<CharacterModalProps> = ({ url }) => {
               </div>
             ) : (
               <div key={key}>
-                <b>{key} </b>: {value.toString()}
+                <b>{key} </b>: {value}
               </div>
             );
           })}

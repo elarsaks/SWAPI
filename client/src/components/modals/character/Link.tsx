@@ -1,5 +1,6 @@
+import React, { useState } from "react";
+
 import Details from "./Details";
-import React from "react";
 import styled from "styled-components";
 
 export const LinkStyle = styled.div``;
@@ -9,9 +10,12 @@ interface CharacterModalProps {
 }
 
 const CharacterModal: React.FC<CharacterModalProps> = ({ url }) => {
+  const [show, setShow] = useState(false);
+
   return (
     <LinkStyle>
-      <Details url={"url"} />
+      {url && <button onClick={() => setShow(!show)}>Show more</button>}
+      {show && <Details url={url} />}
     </LinkStyle>
   );
 };

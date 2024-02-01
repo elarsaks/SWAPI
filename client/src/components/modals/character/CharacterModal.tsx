@@ -9,7 +9,7 @@ export const ModalContent = styled.div`
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 2000;
-  overflow: hidden;
+  max-width: 500px;
 `;
 
 const CharacterContainer = styled.div`
