@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
 
-import Link from "./Link"; // Assuming this is a valid import
-import LoadingCube from "components/util/LoadingCube";
+import NesteDetails from "components/modals/character/Details";
 import styled from "styled-components";
 
-const DetailsContainer = styled.div`
+const generateRandomColor = () => {
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+};
+
+interface DetailsContainerProps {
+  $backgroundColor: string;
+}
+
+const DetailsContainer = styled.div<DetailsContainerProps>`
+  background-color: ${(props) => props.$backgroundColor};
   padding: 5px;
   max-width: 500px;
 `;
@@ -22,6 +30,11 @@ const Details: React.FC<CharacterModalProps> = ({
 }) => {
   const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [backgroundColor, setBackgroundColor] = useState("white");
+
+  useEffect(() => {
+    setBackgroundColor(generateRandomColor());
+  }, []);
 
   useEffect(() => {
     if (isVisible) {
@@ -44,7 +57,7 @@ const Details: React.FC<CharacterModalProps> = ({
   }, [url, isVisible]);
 
   return (
-    <DetailsContainer>
+    <DetailsContainer $backgroundColor={backgroundColor}>
       {isLoading ? (
         <h3>Loading ... </h3>
       ) : (
@@ -56,7 +69,12 @@ const Details: React.FC<CharacterModalProps> = ({
               <div key={key}>
                 <b>{key}</b>:
                 {value.map((item, index) => (
-                  <Link key={`${key}-${index}`} url={item} />
+                  <NesteDetails
+                    key={`${key}-${index}`}
+                    url={item}
+                    isVisible={true}
+                    setTitle={() => {}}
+                  />
                 ))}
               </div>
             ) : (
