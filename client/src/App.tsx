@@ -10,7 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 
 import AuthProvider from "store/AuthProvider";
-import CharacterModal from "./components/modals/CharacterModal";
+import CharacterModal from "./components/modals/character/CharacterModal";
 import SearchContext from "store/SearchContext";
 import { getCharacters } from "api/characters";
 import styled from "styled-components";
