@@ -49,9 +49,6 @@ const CharacterModal: React.FC<CharacterModalProps> = ({ url }) => {
         observer.unobserve(currentParent);
       }
     };
-
-    // Since this effect does not depend on any props or state variables that change,
-    // it's safe to leave the dependency array empty.
   }, []);
 
   return (

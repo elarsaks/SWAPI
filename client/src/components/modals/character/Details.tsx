@@ -46,7 +46,7 @@ const Details: React.FC<CharacterModalProps> = ({
   return (
     <DetailsContainer>
       {isLoading ? (
-        <LoadingCube text="Loading..." height="50px" />
+        <h3>Loading ... </h3>
       ) : (
         <>
           {Object.keys(data || {}).map((key) => {
@@ -55,11 +55,9 @@ const Details: React.FC<CharacterModalProps> = ({
             return Array.isArray(value) ? (
               <div key={key}>
                 <b>{key}</b>:
-                <div key={`${key}-list`}>
-                  {value.map((item, index) => (
-                    <Link key={`${key}-${index}`} url={item} />
-                  ))}
-                </div>
+                {value.map((item, index) => (
+                  <Link key={`${key}-${index}`} url={item} />
+                ))}
               </div>
             ) : (
               <div key={key}>
