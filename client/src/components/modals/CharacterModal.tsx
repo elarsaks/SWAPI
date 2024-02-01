@@ -1,6 +1,6 @@
 import { ModalBackground, ModalContent } from "./Modal";
 
-import Card from "../Card";
+import CharacterImage from "components/CharacterImage";
 import React from "react";
 import styled from "styled-components";
 
@@ -50,12 +50,7 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
     <ModalBackground onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <CharacterContainer>
-          <Card
-            name={character.name}
-            openCharacter={() => {
-              /** Placeholder functionality */
-            }}
-          />
+          <CharacterImage name={character.name} />
           <Info>
             <Detail>Birth Year: {character.birth_year}</Detail>
             <Detail>Eye Color: {character.eye_color}</Detail>

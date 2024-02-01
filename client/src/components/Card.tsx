@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import LoadingCube from "./util/LoadingCube";
-import Util from "./util/Feedback";
-import { getCharacterImage } from "api/characters";
+import CharacterImage from "components/CharacterImage";
 import styled from "styled-components";
 
 const returnEasing = "cubic-bezier(0.445, 0.05, 0.55, 0.95)";
@@ -65,22 +63,6 @@ const InnerBorder = styled.div`
   }
 `;
 
-const CardBg = styled.div<{ $image: string }>`
-  opacity: 1;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-image: url(${(props) => props.$image});
-  transition: 1s ${returnEasing}, opacity 5s 1s ${returnEasing};
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const CardTitle = styled.div`
   position: absolute;
   color: #fff;
@@ -104,20 +86,6 @@ const CardComponent: React.FC<CardProps> = ({ name, openCharacter }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-  const [image, setImage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [imageError, setImageError] = useState("");
-
-  useEffect(() => {
-    setIsLoading(true);
-    getCharacterImage(name)
-      .then((imgUrl) => {
-        setImage(imgUrl);
-        setImageError("");
-      })
-      .catch((error) => setImageError(error.message))
-      .finally(() => setIsLoading(false));
-  }, [name]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
@@ -155,17 +123,9 @@ const CardComponent: React.FC<CardProps> = ({ name, openCharacter }) => {
       onClick={openCharacter}
     >
       <Card>
-        {isLoading && <LoadingCube height="200px" text="Loading image" />}
         <Overlay />
-
-        {imageError ? (
-          <Util type="error" message={imageError || "Failed to load image!"} />
-        ) : (
-          <>
-            <InnerBorder />
-            <CardBg $image={image} />
-          </>
-        )}
+        <InnerBorder />
+        <CharacterImage name={name} />
         <CardTitle>
           <h3>{name}</h3>
         </CardTitle>
