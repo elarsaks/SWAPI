@@ -7,6 +7,7 @@ const Character = styled.div``;
 
 interface CharacterModalProps {
   onClose: () => void;
+  character: Character;
 }
 
 const CharacterModal: React.FC<CharacterModalProps> = ({ onClose }) => {

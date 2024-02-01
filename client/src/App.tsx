@@ -101,7 +101,6 @@ function App() {
   const SearchContextValue = {
     setSearchWord,
   };
-
   return (
     <AuthProvider>
       <SearchContext.Provider value={SearchContextValue}>
@@ -117,12 +116,19 @@ function App() {
               {!loading &&
                 !error &&
                 characters.map((character: Character) => (
-                  <Card key={character.url} name={character.name} />
+                  <Card
+                    key={character.url}
+                    name={character.name}
+                    openCharacter={() => setCharacterOpen(character)}
+                  />
                 ))}
             </Content>
 
             {characterOpen && (
-              <CharacterModal onClose={() => setCharacterOpen(null)} />
+              <CharacterModal
+                character={characterOpen}
+                onClose={() => setCharacterOpen(null)}
+              />
             )}
           </div>
           <Footer />

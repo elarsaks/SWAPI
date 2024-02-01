@@ -99,9 +99,10 @@ const CardTitle = styled.div`
 
 interface CardProps {
   name: string;
+  openCharacter: () => void;
 }
 
-const CardComponent: React.FC<CardProps> = ({ name }) => {
+const CardComponent: React.FC<CardProps> = ({ name, openCharacter }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
@@ -148,6 +149,7 @@ const CardComponent: React.FC<CardProps> = ({ name }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       ref={cardRef}
+      onClick={openCharacter}
     >
       <Card>
         <Overlay />
