@@ -1,4 +1,5 @@
 import CharacterImage from "components/CharacterImage";
+import Details from "./Details";
 import { ModalBackground } from "../ModalBackground";
 import React from "react";
 import styled from "styled-components";
@@ -27,45 +28,6 @@ const CharacterImageContainer = styled.div`
   border: 1px solid #ffffff;
 `;
 
-const DetailsContainer = styled.div`
-  background-color: #f0f0f0;
-  padding: 5px;
-`;
-
-const renderObjectDetails = (obj: any): JSX.Element => {
-  const elements: JSX.Element[] = [];
-
-  Object.keys(obj).forEach((key) => {
-    const value = obj[key];
-    const newPrefix = key;
-
-    if (Array.isArray(value)) {
-      const listItems = value.map((item, index) => (
-        <div key={`${newPrefix}-${index}`}>{item.toString()}</div>
-      ));
-
-      // Arrays
-      elements.push(
-        <div key={newPrefix}>
-          <b>{newPrefix}</b>:
-        </div>,
-
-        // TODO: Insert Link itme here
-        <div key={`${newPrefix}-list`}>{listItems}</div>
-      );
-    } else {
-      // Single Elements
-      elements.push(
-        <div key={newPrefix}>
-          <b>{newPrefix} </b>: {value}
-        </div>
-      );
-    }
-  });
-
-  return <>{elements}</>;
-};
-
 interface CharacterModalProps {
   onClose: () => void;
   character: Character;
@@ -75,6 +37,7 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
   onClose,
   character,
 }) => {
+  console.log(character);
   return (
     <ModalBackground onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
@@ -83,7 +46,8 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
             <CharacterImage name={character.name} />
           </CharacterImageContainer>
 
-          <DetailsContainer>{renderObjectDetails(character)}</DetailsContainer>
+          {/* <DetailsContainer>{renderObjectDetails(character)}</DetailsContainer> */}
+          <Details url={character.url} />
         </CharacterContainer>
       </ModalContent>
     </ModalBackground>
