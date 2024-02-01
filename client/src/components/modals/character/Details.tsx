@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import NesteDetails from "components/modals/character/Details";
 import styled from "styled-components";
@@ -20,17 +20,18 @@ const DetailsContainer = styled.div<DetailsContainerProps>`
 interface CharacterModalProps {
   url: string;
   isVisible: boolean;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
+  // setTitle: React.Dispatch<React.SetStateAction<string>>;
 }
-
 const Details: React.FC<CharacterModalProps> = ({
   url,
   isVisible,
-  setTitle,
+  // setTitle,
 }) => {
+  const [backgroundColor, setBackgroundColor] = useState("white");
   const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [backgroundColor, setBackgroundColor] = useState("white");
+  const [isOpen, setIsOpen] = useState(false);
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     setBackgroundColor(generateRandomColor());
@@ -43,7 +44,10 @@ const Details: React.FC<CharacterModalProps> = ({
         try {
           const response = await fetch(url);
           const jsonData = await response.json();
-          setTitle(jsonData.title);
+          if (jsonData.title) setTitle(jsonData.title);
+          if (jsonData.name) setTitle(jsonData.name);
+          console.log(jsonData.title);
+
           setData(jsonData);
         } catch (error) {
           console.error("Failed to fetch data:", error);
@@ -58,27 +62,33 @@ const Details: React.FC<CharacterModalProps> = ({
 
   return (
     <DetailsContainer $backgroundColor={backgroundColor}>
-      {Object.keys(data || {}).map((key) => {
-        const value = data[key];
+      <button onClick={() => setIsOpen(!isOpen)}>{title}</button>
 
-        return Array.isArray(value) ? (
-          <div key={key}>
-            <b>{key}</b>:
-            {value.map((item, index) => (
-              <NesteDetails
-                key={`${key}-${index}`}
-                url={item}
-                isVisible={true}
-                setTitle={() => {}}
-              />
-            ))}
-          </div>
-        ) : (
-          <div key={key}>
-            <b>{key} </b>: {value}
-          </div>
-        );
-      })}
+      {isOpen && (
+        <div>
+          {" "}
+          {Object.keys(data || {}).map((key) => {
+            const value = data[key];
+            return Array.isArray(value) ? (
+              <div key={key}>
+                <b>{key}</b>:
+                {value.map((item, index) => {
+                  const detailKey = `${key}-${index}`;
+                  return (
+                    <div key={detailKey}>
+                      <NesteDetails url={item} isVisible={true} />
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div key={key}>
+                <b>{key}</b>: {value}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </DetailsContainer>
   );
 };

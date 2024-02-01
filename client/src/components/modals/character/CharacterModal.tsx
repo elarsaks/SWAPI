@@ -15,6 +15,7 @@ export const ModalContent = styled.div`
   overflow-y: scroll;
   max-width: 500px;
   max-height: 90vh;
+  min-width: 320px;
 `;
 
 const CharacterContainer = styled.div`
@@ -51,7 +52,7 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
             <CharacterImage name={character.name} />
           </CharacterImageContainer>
 
-          <Details url={character.url} isVisible={true} setTitle={() => {}} />
+          <Details url={character.url} isVisible={true} />
         </CharacterContainer>
       </ModalContent>
     </ModalBackground>
