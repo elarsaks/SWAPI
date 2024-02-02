@@ -53,15 +53,22 @@ interface FeedBackProps {
   type: "error" | "info" | "warning";
 }
 
-const Error: React.FC<FeedBackProps> = ({ message, type }) => {
+const Feedback: React.FC<FeedBackProps> = ({ message, type }) => {
   const getIcon = () => {
     switch (type) {
       case "error":
-        return <MdError size="40px" />;
+        return <MdError size="40px" data-testid="md-error-icon" />;
       case "warning":
-        return <IoWarningOutline size="40px" />;
+        return (
+          <IoWarningOutline size="40px" data-testid="io-warning-outline-icon" />
+        );
       case "info":
-        return <IoMdInformationCircleOutline size="40px" />;
+        return (
+          <IoMdInformationCircleOutline
+            size="40px"
+            data-testid="io-md-information-circle-outline-icon"
+          />
+        );
       default:
         return null;
     }
@@ -77,4 +84,4 @@ const Error: React.FC<FeedBackProps> = ({ message, type }) => {
   );
 };
 
-export default Error;
+export default Feedback;
