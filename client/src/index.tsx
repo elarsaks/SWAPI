@@ -1,7 +1,7 @@
 import "./index.css";
 
 import App from "./App";
-import AuthProvider from "store/AuthProvider";
+import AuthProvider from "context/auth/AuthProvider";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";

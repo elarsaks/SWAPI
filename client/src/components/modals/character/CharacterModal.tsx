@@ -2,7 +2,7 @@ import CharacterImage from "components/CharacterImage";
 import Details from "./Details";
 import React from "react";
 import styled from "styled-components";
-import { useAuth } from "store/AuthContext";
+import { useAuth } from "context/auth/AuthContext";
 
 export const ModalBackground = styled.div`
   position: fixed;

@@ -3,10 +3,9 @@ import * as characterApi from "api/characters";
 import { render, screen, waitFor } from "@testing-library/react";
 
 import App from "./App";
-import { CharacterResponse } from "types";
 import React from "react";
 import { getCharacters } from "api/characters";
-import { useAuth } from "store/AuthContext";
+import { useAuth } from "context/auth/AuthContext";
 import userEvent from "@testing-library/user-event";
 
 jest.mock("api/characters", () => ({

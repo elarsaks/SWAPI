@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { IoSearchSharp } from "react-icons/io5";
-import SearchContext from "store/SearchContext";
+import SearchContext from "context/search/SearchContext";
 import styled from "styled-components";
 
 const SearchBoxContainer = styled.div`

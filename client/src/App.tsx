@@ -11,10 +11,10 @@ import React, { useEffect, useState } from "react";
 
 import CharacterModal from "components/modals/character/CharacterModal";
 import LoginModal from "components/modals/LoginModal";
-import SearchContext from "store/SearchContext";
+import SearchContext from "context/search/SearchContext";
 import { getCharacters } from "api/characters";
 import styled from "styled-components";
-import { useAuth } from "store/AuthContext";
+import { useAuth } from "context/auth/AuthContext";
 
 const AppStyles = styled.div`
   display: flex;
