@@ -3,7 +3,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, screen, waitFor } from "@testing-library/react";
 
 import CharacterImage from "./CharacterImage";
-import Feedback from "../layout/Feedback";
+import Feedback from "../layout/feedback/Feedback";
 import React from "react";
 
 // Mocking the Feedback component
