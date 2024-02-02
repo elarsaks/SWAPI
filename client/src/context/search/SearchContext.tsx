@@ -1,9 +1,5 @@
 import React from "react";
 
-interface SearchContextType {
-  setSearchWord: React.Dispatch<React.SetStateAction<string>>;
-}
-
 const defaultValue: SearchContextType = {
   setSearchWord: () => {},
 };

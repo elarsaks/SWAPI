@@ -33,4 +33,6 @@ type CharacterResponse = {
     results: Character[];
 };
 
-
+type SearchContextType = {
+    setSearchWord: React.Dispatch<React.SetStateAction<string>>;
+}
