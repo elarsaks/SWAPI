@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import Feedback from "./layout/Feedback";
+import Feedback from "../layout/Feedback";
 import styled from "styled-components";
 
 const ImageContainer = styled.div<{ $image?: string }>`

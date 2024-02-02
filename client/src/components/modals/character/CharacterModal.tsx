@@ -1,4 +1,4 @@
-import CharacterImage from "components/CharacterImage";
+import CharacterImage from "components/character-image/CharacterImage";
 import Details from "./Details";
 import React from "react";
 import styled from "styled-components";

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import CharacterImage from "components/CharacterImage";
+import CharacterImage from "components/character-image/CharacterImage";
 import styled from "styled-components";
 
 const CardWrap = styled.div<{ x: number; y: number }>`
