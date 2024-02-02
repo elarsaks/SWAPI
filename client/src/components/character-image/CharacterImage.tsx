@@ -47,7 +47,10 @@ const CharacterImage: React.FC<CharacterImageProps> = ({ name }) => {
   }, [name, imageUrl]);
 
   return (
-    <ImageContainer $image={imageError ? undefined : image}>
+    <ImageContainer
+      $image={imageError ? undefined : image}
+      data-testid="image-container"
+    >
       {imageError && <Feedback type="error" message={imageError} />}
     </ImageContainer>
   );
