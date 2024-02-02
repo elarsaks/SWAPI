@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import styled from "styled-components";
-import { useAuth } from "../../context/auth/AuthContext";
+import { useAuth } from "../../../context/auth/AuthContext";
 
 export const ModalBackground = styled.div`
   position: fixed;

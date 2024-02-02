@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import LoginModal from "components/modals/LoginModal";
+import LoginModal from "components/modals/login/LoginModal";
 import logoImage from "assets/logo-w.png";
 import styled from "styled-components";
 import { useAuth } from "context/auth/AuthContext";
