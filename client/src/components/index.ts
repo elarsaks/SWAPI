@@ -1,8 +1,8 @@
 export { default as Card } from './Card';
-export { default as Footer } from './util/Footer';
-export { default as LoadingCube } from './util/LoadingCube';
-export { default as Menu } from './ContentMenu/ContentMenu';
-export { default as NavBar } from './util/NavBar';
+export { default as Footer } from './layout/Footer';
+export { default as LoadingCube } from './layout/LoadingCube';
+export { default as Menu } from './content-menu/ContentMenu';
+export { default as NavBar } from './layout/NavBar';
 export { default as Title } from './title/Title';
-export { default as Util } from './util/Feedback';
+export { default as Util } from './layout/Feedback';
 
