@@ -50,6 +50,7 @@ const Footer: React.FC = () => {
         href="https://github.com/elarsaks/SWAPI"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="GitHub"
       >
         <FaGithub size="20px" />
         <span>GitHub</span>
@@ -59,6 +60,7 @@ const Footer: React.FC = () => {
         href="https://www.linkedin.com/in/elarsaks/"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="LinkedIn"
       >
         <FaLinkedin size="20px" />
         <span>LinkedIn</span>

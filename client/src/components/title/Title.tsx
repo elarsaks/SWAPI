@@ -34,7 +34,7 @@ const Title = (props: { text: string }) => {
   return (
     <TitleStyles>
       {letters.map((letter, index) => (
-        <TitleLetter>{letter}</TitleLetter>
+        <TitleLetter key={index}>{letter}</TitleLetter>
       ))}
     </TitleStyles>
   );
