@@ -1,4 +1,4 @@
-name: Delpoy front-end
+name: Deploy front-end
 
 on:
   push:
@@ -30,6 +30,11 @@ jobs:
         run: |
           cd client
           npm i
+
+      - name: Run tests
+        run: |
+          cd client
+          npm test
 
       - name: Build
         run: |
