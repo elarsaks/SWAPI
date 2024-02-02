@@ -30,6 +30,6 @@ describe("Feedback Component", () => {
     const warningMessage = "This is a warning";
     render(<FeedBack message={warningMessage} type="warning" />);
     expect(screen.getByText(/WARNING: This is a warning/)).toBeInTheDocument();
-    expect(screen.getByTestId("io-warning-outline-icon")).toBeInTheDocument(); // Add data-testid to your icons
+    expect(screen.getByTestId("io-warning-outline-icon")).toBeInTheDocument();
   });
 });

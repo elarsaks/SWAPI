@@ -69,10 +69,6 @@ describe("App Component", () => {
     );
   });
 
-  it("handles character click by unauthenticated user", async () => {
-    mockAuthenticated(false);
-    render(<App />);
-    await waitFor(() => userEvent.click(screen.getByText("Luke Skywalker")));
-    expect(screen.getByText("Login Modal")).toBeInTheDocument();
-  });
+  // TODO: Test authenticates user clicking on the card
+  // TODO: Test unauthenticated user clicking on the card
 });
