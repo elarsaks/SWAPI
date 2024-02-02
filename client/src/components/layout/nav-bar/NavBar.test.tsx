@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 
 import NavBar from "./NavBar";
+import React from "react";
 import { useAuth } from "context/auth/AuthContext";
 
 // Mock the AuthContext and LoginModal component
