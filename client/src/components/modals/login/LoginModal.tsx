@@ -60,6 +60,7 @@ const LoginForm = styled.div`
       color: white;
       padding: 0.8rem;
       margin-top: 1rem;
+      cursor: pointer;
 
       &:hover {
         background-color: #004494;
