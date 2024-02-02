@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import NesteDetails from "components/modals/character/Details";
+import NesteDetails from "components/modals/character/details/Details";
 import styled from "styled-components";
 
 const generateRandomColor = () => {

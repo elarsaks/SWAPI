@@ -1,5 +1,5 @@
 import CharacterImage from "components/character-image/CharacterImage";
-import Details from "./Details";
+import Details from "../details/Details";
 import React from "react";
 import styled from "styled-components";
 import { useAuth } from "context/auth/AuthContext";
@@ -85,9 +85,13 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
     // Optionally redirect to login or return null
     return null;
   }
+
   return (
-    <ModalBackground onClick={onClose}>
-      <ModalContent onClick={(e) => e.stopPropagation()}>
+    <ModalBackground onClick={onClose} data-testid="modal-background">
+      <ModalContent
+        onClick={(e) => e.stopPropagation()}
+        data-testid="modal-content"
+      >
         <CharacterContainer>
           <CharacterImageContainer>
             <CharacterImage name={character.name} />

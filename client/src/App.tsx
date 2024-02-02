@@ -9,7 +9,7 @@ import {
 } from "components";
 import React, { useEffect, useState } from "react";
 
-import CharacterModal from "components/modals/character/CharacterModal";
+import CharacterModal from "components/modals/character/character-modal/CharacterModal";
 import LoginModal from "components/modals/login/LoginModal";
 import SearchContext from "context/search/SearchContext";
 import { getCharacters } from "api/characters";
