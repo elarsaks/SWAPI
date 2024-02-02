@@ -1,57 +1,43 @@
-import TitleLetter from "./TitleLetter";
 import styled from "styled-components";
-import { useState } from "react";
 
 const TitleStyles = styled.div`
   padding-top: 10vh;
   padding-bottom: 2vh;
   display: flex;
   justify-content: center;
+  flex-direction: row;
+`;
+
+const TitleLetter = styled.div`
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+  transition: all 1s;
+  cursor: none;
+
+  &:hover {
+    transition: color 100ms;
+    color: red;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    padding: 0.2rem;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
 `;
 
 const Title = (props: { text: string }) => {
   const letters = props.text.split("");
-  // Index is 99, to keep the default state
-  const [currentLetterIndex, setCurrentLetterIndex] = useState(99);
-
-  const handleLetterClick = (targetIndex: number) => {
-    // Check if we are not already looping through the letters
-    if (currentLetterIndex === 99) {
-      // Start from the first letter
-      setCurrentLetterIndex(0);
-      // Set up an interval to update the index every second
-      const intervalId = setInterval(() => {
-        setCurrentLetterIndex((prevIndex) => {
-          // If we've reached the last letter, clear the interval and set index to 99 after one more second
-          if (prevIndex === targetIndex) {
-            clearInterval(intervalId);
-            setTimeout(() => setCurrentLetterIndex(99), 100);
-            return 99;
-          } else {
-            // Otherwise, move to the next letter
-            return prevIndex + 1;
-          }
-        });
-      }, 400);
-    }
-  };
-
-  function getDirection(index: number, currentLetterIndex: number) {
-    return currentLetterIndex === index ? -20 : 0;
-  }
-
-  const renderLetters = () => {
-    return letters.map((letter, index) => (
-      <TitleLetter
-        key={`${index}`}
-        letter={letter}
-        direction={getDirection(index, currentLetterIndex)}
-        onClick={() => handleLetterClick(index)}
-      />
-    ));
-  };
-
-  return <TitleStyles>{renderLetters()}</TitleStyles>;
+  return (
+    <TitleStyles>
+      {letters.map((letter, index) => (
+        <TitleLetter>{letter}</TitleLetter>
+      ))}
+    </TitleStyles>
+  );
 };
 
 export default Title;
