@@ -99,6 +99,7 @@ const CardComponent: React.FC<CardProps> = ({ name, openCharacter }) => {
       onMouseLeave={handleMouseLeave}
       ref={cardRef}
       onClick={openCharacter}
+      data-testid="card-wrap"
     >
       <Card>
         <Overlay />
