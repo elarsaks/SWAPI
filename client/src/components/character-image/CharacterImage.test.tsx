@@ -1,22 +1,6 @@
-import "@testing-library/jest-dom/extend-expect";
-
 import { render, screen, waitFor } from "@testing-library/react";
 
 import CharacterImage from "./CharacterImage";
-import Feedback from "../layout/feedback/Feedback";
-import React from "react";
-
-// Mocking the Feedback component
-jest.mock(
-  "../layout/Feedback",
-  () =>
-    ({ type, message }: { type: string; message: string }) =>
-      (
-        <div data-testid="feedback" data-type={type}>
-          {message}
-        </div>
-      )
-);
 
 describe("CharacterImage", () => {
   const name = "Luke Skywalker";
@@ -64,7 +48,7 @@ describe("CharacterImage", () => {
     render(<CharacterImage name={name} />);
 
     // Wait for the Feedback component to render an error message
-    const feedback = await screen.findByText("Failed to load image!");
+    const feedback = await screen.findByText(/Failed to load image!/i);
     expect(feedback).toBeInTheDocument();
   });
 });
