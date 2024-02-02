@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import NavBar from "./NavBar";
 import { useAuth } from "context/auth/AuthContext";
 
+// Mock the AuthContext and LoginModal component
 jest.mock("context/auth/AuthContext", () => ({
   useAuth: jest.fn(),
 }));
@@ -11,8 +12,7 @@ jest.mock("components/modals/login/LoginModal", () => () => (
   <div data-testid="mockLoginModal">Mock Login Modal</div>
 ));
 
-// Correcting the mock setup
-const mockUseAuth = useAuth as jest.MockedFunction<() => AuthContextType>;
+// Mock implementations
 const mockLogout = jest.fn();
 const mockLogin = jest.fn();
 
@@ -21,22 +21,21 @@ const renderNavBar = (
   isAuthenticated = false,
   username: string | null = null
 ) => {
-  mockUseAuth.mockReturnValue({
+  (useAuth as jest.Mock).mockReturnValue({
     isAuthenticated,
     logout: mockLogout,
     username,
-    token: null,
+    token: isAuthenticated ? "dummyToken" : null,
     login: mockLogin,
-    setPostLoginAction: () => {},
+    setPostLoginAction: jest.fn(),
   });
+
   render(<NavBar />);
 };
 
 describe("NavBar Component", () => {
   beforeEach(() => {
-    // Clear all mocks before each test
-    mockLogout.mockClear();
-    mockUseAuth.mockClear();
+    jest.clearAllMocks(); // Reset mocks to their initial state before each test
   });
 
   it("displays Log In button for unauthenticated users", () => {
@@ -60,5 +59,13 @@ describe("NavBar Component", () => {
     renderNavBar(true);
     fireEvent.click(screen.getByText("Log Out"));
     expect(mockLogout).toHaveBeenCalled();
+  });
+
+  it("displays the username on the upper left side for authenticated users", () => {
+    const testUsername = "Luke Skywalker";
+    renderNavBar(true, testUsername);
+
+    const usernameDisplay = screen.getByText(testUsername);
+    expect(usernameDisplay).toBeInTheDocument();
   });
 });
