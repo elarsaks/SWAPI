@@ -129,7 +129,7 @@ function App() {
         <Title text="STAR WARS" />
         <Menu minPage={1} setPage={setPage} page={page} maxPage={maxPage} />
         <Content $isUtil={loading || !!error || !!info}>
-          {loading ? <LoadingCube height="400px" text="Loading ..." /> : null}
+          {loading ? <LoadingCube height="400px" /> : null}
           {error ? <Util type="error" message={error} /> : null}
           {info ? <Util type="info" message={info} /> : null}
           {!loading &&

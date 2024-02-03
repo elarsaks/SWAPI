@@ -55,7 +55,9 @@ Once the application is running, you can access it using the following URL:
 | App | URL |
 |------------------|-------------------------------------|
 | React | [http://localhost:3000/SWAPI](http://localhost:3000/SWAPI) |
------------------------------
+
+---
+
 <br><br>
 
 <img src="https://raw.githubusercontent.com/elarsaks/SWAPI/main/client/public/logo.png" alt="Placeholder" title="Placeholder Image" width="200" height="200"/>
@@ -64,6 +66,7 @@ Once the application is running, you can access it using the following URL:
 # Additional Notes
 
 ## Images
+
 Since there was no images provided and I couldn't find any good APIs for the images:
 
 - Downloaded a 1.4GB dataset from Kaggle containing character images.
@@ -72,11 +75,10 @@ Since there was no images provided and I couldn't find any good APIs for the ima
 - Discovered that this dataset didnt have all the characters and left the image loading failure in as a feature
 
 ## Extra dependencies:
+
 - jest - For testing.
 - styled-components - Because they are awesome.
 - react-icons - For the icons.
-- three.js - For the loading cube (questionable idea, but seemed cool).
-
-<br>
+  <br>
 
 ### TODO: Finish ReadMe
