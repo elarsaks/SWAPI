@@ -8,8 +8,6 @@
 
 # About
 
-#### 🚧 UNDER DEVELOPMENT 🚧
-
 This is a coding assignment created for a job application. Its goal is to demonstrate UI design implementation, API integration, error handling, code quality, testing, and application development using ReactJS and TypeScript.
 
 It is solely a front-end application that performs basic API calls, pagination, and mock authentication.
@@ -74,9 +72,10 @@ Since there was no images provided and I couldn't find any good APIs for the ima
 - Discovered that this dataset didnt have all the characters and left the image loading failure in as a feature
 
 ## Extra dependencies:
-- react icons - for the icons
-- three js - for the loading cube (brings alot of TS dependency issues)
-- ... more to come
+- jest - For testing.
+- styled-components - Because they are awesome.
+- react-icons - For the icons.
+- three.js - For the loading cube (questionable idea, but seemed cool).
 
 <br>
 
