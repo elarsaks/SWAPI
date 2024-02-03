@@ -4,6 +4,8 @@ import Feedback from "../layout/feedback/Feedback";
 import styled from "styled-components";
 
 const ImageContainer = styled.div<{ $image?: string }>`
+  display: flex;
+  flex-direction: column;
   background-color: #0000006d;
   width: 100%;
   height: 100%;
@@ -51,7 +53,12 @@ const CharacterImage: React.FC<CharacterImageProps> = ({ name }) => {
       $image={imageError ? undefined : image}
       data-testid="image-container"
     >
-      {imageError && <Feedback type="error" message={imageError} />}
+      {imageError && (
+        <>
+          <Feedback type="error" message={imageError} />
+          <Feedback type="info" message={"This Error is not a bug! "} />
+        </>
+      )}
     </ImageContainer>
   );
 };
